@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de Nosotros</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/mante.css">
+    <link rel="stylesheet" href="../css/acercadeadmin.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <aside id="white-box" class="sidebar">
+            <div class="logo">
+                <div class="circle">
+                    <a href="../Index.html">
+                        <img id="logomain" src="../img/logo.png" alt="Logo">
+                    </a>
+                </div>
+                <p>Bienvenido Daniel</p>
+                <a class="text-link" href="../Pantallas Sesion/login.html">Cerrar Sesion</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../Pantallas Admin/HomeAdmin.html">Home</a>
+                    </li>
+                    <li><a href="../Pantallas Admin/modelo.html">Registrar Marca o Modelos</a></li>
+                    <li><a href="../Pantallas Admin/AñadirMinisplits.html">Añadir minisplits al catálogo</a></li>
+                    <li><a href="../Pantallas Admin/Mantenimiento.html">Administrar solicitudes de mantenimiento</a>
+                    </li>
+                    <li><a href="../Pantallas Admin/Ayuda.html">Ayuda</a></li>
+                    <li><a href="../Pantallas Admin/Usuarios.html">Gestión de usuarios</a></li>
+                    <li><a href="../Pantallas Admin/Estadisticas.html">Reporte mensual de estadísticas</a></li>
+                </ul>
+            </nav>
+            <div class="logo">
+                <div class="circle">
+                    <a href="#">
+                        <img id="logomain" src="../img/notificacion.png" alt="Logo">
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section class="about-section">
+                <h2>Acerca de Nosotros</h2>
+                <p class="editable" onclick="toggleEditMode()">Bienvenido a nuestro servicio de mantenimiento y
+                    reparación de sistemas de climatización. Nos dedicamos a ofrecer soluciones de alta calidad para
+                    asegurar el óptimo funcionamiento de tus equipos de aire acondicionado y calefacción.</p>
+
+                <h3>Nuestra Misión</h3>
+                <p class="editable" onclick="toggleEditMode()">Proporcionar un servicio confiable y eficiente, mejorando
+                    la calidad del ambiente en los espacios de nuestros clientes y contribuyendo al ahorro energético.
+                </p>
+
+                <h3>Nuestros Valores</h3>
+                <ul>
+                    <li class="editable" onclick="toggleEditMode()">Calidad</li>
+                    <li class="editable" onclick="toggleEditMode()">Responsabilidad</li>
+                    <li class="editable" onclick="toggleEditMode()">Innovación</li>
+                    <li class="editable" onclick="toggleEditMode()">Compromiso con el cliente</li>
+                </ul>
+
+                <h3>Contacto</h3>
+                <p class="editable" onclick="toggleEditMode()">Si tienes alguna pregunta o deseas saber más sobre
+                    nuestros servicios, no dudes en ponerte en contacto con nosotros.</p>
+                <p class="editable" onclick="toggleEditMode()">Email: contacto@nuestroservicio.com</p>
+                <p class="editable" onclick="toggleEditMode()">Teléfono: +123 456 7890</p>
+
+                <h3>Disponibilidad y precios</h3>
+                <p class="editable" onclick="toggleEditMode()">Normalmente agendamos citas para mantenimiento de lunes a
+                    sábado desde las 12:00pm hasta las 8:00pm.</p>
+                <p class="editable" onclick="toggleEditMode()">Tenemos precios accesibles desde una simple revisada que
+                    puede costar 200 hasta la reparación completa de un dispositivo que podría llegar a costar 2000.</p>
+                <p class="editable" onclick="toggleEditMode()">SOLO HACEMOS MANTENIMIENTO A LOS PRODUCTOS QUE SE
+                    MUESTRAN EN EL CATALOGO</p>
+
+                <button onclick="toggleEditMode()" class="edit-btn">Editar</button>
+                <button onclick="clearText()" class="delete-btn">Borrar</button>
+            </section>
+
+            <footer>
+                <h3>Contáctanos!</h3>
+                <p>81 0000 0000</p>
+                <p>ejemplo@gmail.com</p>
+            </footer>
+        </main>
+    </div>
+    <script src="../js/Acercade.js"></script>
+</body>
+
+</html>

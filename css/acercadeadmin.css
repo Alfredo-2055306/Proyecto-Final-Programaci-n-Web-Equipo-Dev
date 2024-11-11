@@ -1,0 +1,44 @@
+.editable {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.editing .text-input {
+    width: 100%;
+    padding: 5px;
+    font-size: 1em;
+}
+
+.edit-btn,
+.delete-btn {
+    background-color: #004a99;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background-color: #ff0000;
+}
+
+.edit-btn:hover {
+    background-color: #003366;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #003366;
+    color: white;
+}
+
+.about-section {
+    margin: 30px;
+}

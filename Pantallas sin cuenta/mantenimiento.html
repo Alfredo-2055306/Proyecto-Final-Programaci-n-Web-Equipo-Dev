@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Dispositivos</title>
+    <link rel="icon" type="image/png" href="../img/logo.png" />
+    <link rel="stylesheet" href="../css/mante.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <aside id="white-box" class="sidebar">
+            <div class="logo">
+                <div class="circle">
+                    <a href="../Index.html">
+                        <img id="logomain" src="../img/logo.png" alt="Logo">
+                    </a>
+                </div>
+                <a class="text-link" href="../Pantallas Sesion/login.html">Iniciar Sesion</a>
+                <a class="text-link" href="../Pantallas Sesion/register.html">Registrarse</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../Index.html">Home</a>
+                    </li>
+                    <li><a href="../Pantallas sin cuenta/catalogo.html">Catálogo</a>
+                    </li>
+                    <li><a href="../Pantallas sin cuenta/ayuda.html">Ayuda</a>
+                    </li>
+                    <li><a href="../Pantallas sin cuenta/acercade.html">Acerca de</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <h2>Nos encargamos de darle el mejor mantenimiento a tu empresa</h2>
+            </div>
+            <div class="form-container">
+                <h2>Solicita tu servicio</h2><br>
+                <p class="note">*Es necesario iniciar sesión para solicitar un mantenimiento</p><br>
+                <form>
+                    <label for="marca">Marca:</label>
+                    <select id="marca">
+                        <option value="CoolAir">CoolAir</option>
+                        <option value="AirPlus">AirPlus</option>
+                    </select>
+
+                    <label for="modelo">Modelo:</label>
+                    <select id="modelo">
+                        <option value="Split AC 1234">Split AC 1234</option>
+                        <option value="Window AC 5678">Window AC 5678</option>
+                    </select>
+
+                    <label for="ubicacion">Ubicación:</label>
+                    <input type="text" id="ubicacion" name="ubicacion">
+
+                    <label for="descripcion">Descripción breve del problema:</label>
+                    <textarea id="descripcion" name="descripcion"></textarea>
+
+                    <label>Días disponibles:</label>
+                    <div class="days">
+                        <button type="button">L</button>
+                        <button type="button">Ma</button>
+                        <button type="button">Mi</button>
+                        <button type="button">J</button>
+                        <button type="button">V</button>
+                        <button type="button">S</button>
+                    </div>
+
+                    <button type="submit" class="submit-button">Aceptar</button>
+                </form>
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
