@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Minisplit Proyecto Final - Equipo Dev.props" />
+</Project>

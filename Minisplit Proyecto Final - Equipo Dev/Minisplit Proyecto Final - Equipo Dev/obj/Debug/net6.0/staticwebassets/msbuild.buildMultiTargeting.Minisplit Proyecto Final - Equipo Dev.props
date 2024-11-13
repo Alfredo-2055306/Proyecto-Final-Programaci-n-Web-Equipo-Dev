@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Minisplit Proyecto Final - Equipo Dev.props" />
+</Project>
