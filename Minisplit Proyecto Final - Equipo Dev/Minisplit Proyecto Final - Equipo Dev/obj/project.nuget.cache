@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xR4Cuz5y52W5K87LajBIEY/FTB4ISeDJzpu78QQenT8q0KYIZUO/7YuByT/x6ltXMEY7LNjYwjqwl0mkNSBafg==",
+  "dgSpecHash": "HiRT1zXFXraMxg43WRdbqL3o7z5aKADExyvNAnmJJ8JON+WrXzBCzUD63OlJd10ucbsWu0+10ey0D7YiDHzjCA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\magno\\Pictures\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev.csproj",
+  "projectFilePath": "C:\\Users\\magno\\Pictures\\Proyecto-Final-Programaci-n-Web-Equipo-Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\magno\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\magno\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

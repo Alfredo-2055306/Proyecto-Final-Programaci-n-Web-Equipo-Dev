@@ -75,84 +75,81 @@
                 <div id="formModelo" class="form hidden">
                     <label for="nombreModelo">Nombre del modelo:</label>
                     <input type="text" id="nombreModelo" placeholder="Nombre del modelo...">
-                    <select id="selectMarca">
-                        <option value="">Seleccionar marca</option>
-                        <option value="sony">Sony</option>
-                        <option value="aux">Aux</option>
-                    </select>
                     <button class="btn btn-green">Registrar</button>
                 </div>
-
                 <div class="tables">
-                    <table>
-                        <caption>Registros de marcas</caption>
-                        <thead>
-                            <tr>
-                                <th>ID de Marca</th>
-                                <th>Nombre de Marca</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Sony</td>
-                                <td>
-                                    <button class="btn btn-yellow">Editar</button>
-                                    <button class="btn btn-red">Eliminar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>Aux</td>
-                                <td>
-                                    <button class="btn btn-yellow">Editar</button>
-                                    <button class="btn btn-red">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <table>
-                        <caption>Registros de modelos</caption>
-                        <thead>
-                            <tr>
-                                <th>ID de Modelo</th>
-                                <th>ID de Marca</th>
-                                <th>Nombre de Marca</th>
-                                <th>Nombre de Modelo</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>01</td>
-                                <td>Sony</td>
-                                <td>X22_800</td>
-                                <td>
-                                    <button class="btn btn-yellow">Editar</button>
-                                    <button class="btn btn-red">Eliminar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>01</td>
-                                <td>Sony</td>
-                                <td>X23_900</td>
-                                <td>
-                                    <button class="btn btn-yellow">Editar</button>
-                                    <button class="btn btn-red">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="inherit" class="tables">
+                        <table>
+                            <caption>Registros de marcas</caption><br>
+                            <thead>
+                                <tr>
+                                    <th>ID de Marca</th>
+                                    <th>Nombre de Marca</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="marcadiv">
+                                <!-- <tr>
+                                    <td>01</td>
+                                    <td>Sony</td>
+                                    <td>
+                                        <button class="btn btn-yellow">Editar</button>
+                                        <button class="btn btn-red">Eliminar</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>02</td>
+                                    <td>Aux</td>
+                                    <td>
+                                        <button class="btn btn-yellow">Editar</button>
+                                        <button class="btn btn-red">Eliminar</button>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tables">
+                        <table>
+                            <caption>Registros de modelos</caption>
+                            <thead>
+                                <tr>
+                                    <th>ID de Modelo</th>
+                                    <th>Nombre de Modelo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modelodiv">
+                                <!-- <tr>
+                                    <td>01</td>
+                                    <td>01</td>
+                                    <td>Sony</td>
+                                    <td>X22_800</td>
+                                    <td>
+                                        <button class="btn btn-yellow">Editar</button>
+                                        <button class="btn btn-red">Eliminar</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>02</td>
+                                    <td>01</td>
+                                    <td>Sony</td>
+                                    <td>X23_900</td>
+                                    <td>
+                                        <button class="btn btn-yellow">Editar</button>
+                                        <button class="btn btn-red">Eliminar</button>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </div>
 
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/dropdownmarca.js"></script>
 </body>
 

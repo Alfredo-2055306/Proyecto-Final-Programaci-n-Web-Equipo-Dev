@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Minisplit_Proyecto_Final___Equipo_Dev.DTOs;
+using Minisplit_Proyecto_Final___Equipo_Dev.Models;
 using System.Data;
 using System.Data.SqlClient;
-using Minisplit_Proyecto_Final___Equipo_Dev.Models;
 
 namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
 {
@@ -23,7 +24,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
         [Route("Lista")]
         public IActionResult Lista()
         {
-            List<Minisplit> Lista = new List<Minisplit>();
+            List<MinisplitDTO> lista = new List<MinisplitDTO>();
 
             try
             {
@@ -37,25 +38,30 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                     {
                         while (reader.Read())
                         {
-                            Lista.Add(new Minisplit()
+                            lista.Add(new MinisplitDTO()
                             {
                                 IDMarca = Convert.ToInt32(reader["IDMarca"]),
                                 IDModelo = Convert.ToInt32(reader["IDModelo"]),
-                                NombreMinisplit = reader["NombreMinisplit"].ToString(),
-                                Descripcion = reader["Descripcion"].ToString(),
-                                ImagenRuta = reader["ImagenRuta"].ToString()
+                                NombreMinisplit = reader["NombreMinisplit"]?.ToString(),
+                                Descripcion = reader["Descripcion"]?.ToString(),
+                                ImagenRuta = reader["ImagenRuta"]?.ToString(),
+                                NombreMarca = reader["NombreMarca"]?.ToString(),
+                                NombreModelo = reader["NombreModelo"]?.ToString()
                             });
                         }
                     }
                 }
 
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok", response = Lista });
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok", response = lista });
             }
             catch (Exception error)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message, response = Lista });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message, response = lista });
             }
         }
+
+
+
 
         [HttpGet]
         [Route("Obtener/{IDMarca:int}/{IDModelo:int}")]

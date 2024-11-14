@@ -603,11 +603,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\magno\\Pictures\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev.csproj",
+      "projectUniqueName": "C:\\Users\\magno\\Pictures\\Proyecto-Final-Programaci-n-Web-Equipo-Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev.csproj",
       "projectName": "Minisplit Proyecto Final - Equipo Dev",
-      "projectPath": "C:\\Users\\magno\\Pictures\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev.csproj",
+      "projectPath": "C:\\Users\\magno\\Pictures\\Proyecto-Final-Programaci-n-Web-Equipo-Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev.csproj",
       "packagesPath": "C:\\Users\\magno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\magno\\Pictures\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev\\obj\\",
+      "outputPath": "C:\\Users\\magno\\Pictures\\Proyecto-Final-Programaci-n-Web-Equipo-Dev\\Minisplit Proyecto Final - Equipo Dev\\Minisplit Proyecto Final - Equipo Dev\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\magno\\AppData\\Roaming\\NuGet\\NuGet.Config",

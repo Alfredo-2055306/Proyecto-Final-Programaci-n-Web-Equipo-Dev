@@ -56,39 +56,55 @@
             </div>
         </aside>
 
+        <div class="minisplits">
+            <main class="form-container">
+                <h2>Crear nuevo minisplit disponible de mantenimiento</h2>
+                <form id="formMinisplit">
+                    <label for="nombreMinisplit">Nombre del minisplit:</label>
+                    <textarea id="nombreMinisplit" name="Nombre" placeholder="Nombre del producto"></textarea>
 
-        <main class="form-container">
-            <h2>Crear nuevo minisplit disponible de mantenimiento</h2>
-            <form>
-                <label for="brand">Marca:</label>
-                <select id="brand" name="brand">
-                    <option value="">Selecciona una marca</option>
-                    <option value="marca1">Marca 1</option>
-                    <option value="marca2">Marca 2</option>
-                    <option value="marca3">Marca 3</option>
-                </select>
+                    <label for="brand">Marca:</label>
+                    <select id="brand" name="brand">
+                        <option value="">Selecciona una marca</option>
+                    </select>
 
-                <label for="model">Modelo:</label>
-                <select id="brand" name="brand">
-                    <option value="">Selecciona el modelo</option>
-                    <option value="marca1">Modelo 1</option>
-                    <option value="marca2">Modelo 2</option>
-                    <option value="marca3">Modelo 3</option>
-                </select>
+                    <label for="model">Modelo:</label>
+                    <select id="model" name="model">
+                        <option value="">Selecciona el modelo</option>
+                    </select>
 
-                <label for="description">Descripción del producto:</label>
-                <textarea id="description" name="description" placeholder="Descripción del producto"></textarea>
+                    <label for="descripcion">Descripción del producto:</label>
+                    <textarea id="descripcion" name="description" placeholder="Descripción del producto"></textarea>
 
-                <label for="upload">Cargar imagen del minisplit:</label>
-                <input type="file" id="upload" name="upload">
+                    <label for="upload">Cargar imagen del minisplit:</label>
+                    <input type="file" id="upload" name="upload">
 
-                <div class="buttons">
-                    <button type="submit" class="btn-green">Crear</button>
-                    <button type="button" class="btn-red">X</button>
+                    <div class="buttons">
+                        <button type="submit" class="btn-green">Crear Minisplit</button>
+                    </div>
+                </form>
+
+            </main>
+            <main class="main-content">
+                <div class="header">
+                    <h2>Nos encargamos de darle el mejor mantenimiento a tu empresa</h2>
                 </div>
-            </form>
-        </main>
+                <div class="containerbox">
+                    <h2>Catálogo de Dispositivos</h2><br><br>
+                    <div class="boxflex" id="catalogoMinisplits">
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/Minisplits.js"></script>
 </body>
 
 </html>
