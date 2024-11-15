@@ -234,6 +234,12 @@ nav ul li a:hover {
     width: 100%;
 }
 
+.rightbtn {
+    display: inline;
+    margin-right: 0;
+    margin-left: auto;
+}
+
 caption {
     font-weight: bolder;
     margin-bottom: 20px;
@@ -260,4 +266,14 @@ th {
 
 td button {
     margin-right: 5px;
+}
+
+#aboutsec {
+    display: block;
+}
+
+.textabout {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
 }

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="icon" type="image/png" href="../img/logo.png" />
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/usuarios.css">
+    <link rel="stylesheet" href="../css/mante.css">
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="user-info">
+                <div class="circle">
+                    <a href="../Index.html">
+                        <img id="logomain" src="../img/logo.png" alt="Logo">
+                    </a>
+                </div>
+                <p>Hola Daniel</p>
+                <a class="text-link" href="../Pantallas Sesion/login.html">Cerrar sesión</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../Pantallas Admin/AñadirMinisplits.html">Añadir productos al catálogo</a></li>
+                    <li><a href="../Pantallas Admin/modelo.html">Registrar Marca o Modelos</a></li>
+                    <li><a href="../Pantallas Admin/Mantenimiento.html">Administrar solicitudes de mantenimiento</a>
+                    </li>
+                    <li><a href="../Pantallas Admin/Ayuda.html">Ayuda</a></li>
+                    <li><a href="../Pantallas Admin/Acercade.html">Acerca de</a></li>
+                    <li><a href="../Pantallas Admin/Usuarios.html">Gestión de usuarios</a></li>
+                    <li><a href="../Pantallas Admin/Estadisticas.html">Reporte mensual de estadísticas</a></li>
+                </ul>
+            </nav>
+            <div class="notification-icon">
+                <img src="../img/notificacion.png" alt="Notificaciones">
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <h2>Gestión de Usuarios</h2>
+            <div class="users-panel">
+                <div class="users-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Correo</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listuser">
+                            <!-- Ejemplo de usuario -->
+                            <tr>
+                                <td>Daniel</td>
+                                <td>daniel@example.com</td>
+                                <td>Admin</td>
+                                <td>
+                                    <button class="btn-yellow">Editar</button>
+                                    <button class="btn-red">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="create-user-form">
+                    <h3>Crear usuario nuevo</h3>
+                    <form action="#">
+                        <input type="text" placeholder="Nombre" required>
+                        <input type="email" placeholder="Correo" required>
+                        <input type="password" placeholder="Contraseña" required>
+                        <input type="password" placeholder="Confirmar contraseña" required>
+                        <select required>
+                            <option value="" disabled selected>Seleccionar rol</option>
+                            <option value="admin">Administrador</option>
+                            <option value="user">Usuario</option>
+                        </select>
+                        <button class="btn-submit" type="submit">Aceptar</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/user.js"></script>
+</body>
+
+</html>

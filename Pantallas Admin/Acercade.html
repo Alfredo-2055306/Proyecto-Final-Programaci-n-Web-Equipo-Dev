@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acerca de Nosotros</title>
+    <link rel="icon" type="image/png" href="../img/logo.png" />
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/mante.css">
     <link rel="stylesheet" href="../css/acercadeadmin.css">
@@ -46,41 +47,11 @@
         </aside>
 
         <main class="main-content">
-            <section class="about-section">
-                <h2>Acerca de Nosotros</h2>
-                <p class="editable" onclick="toggleEditMode()">Bienvenido a nuestro servicio de mantenimiento y
-                    reparación de sistemas de climatización. Nos dedicamos a ofrecer soluciones de alta calidad para
-                    asegurar el óptimo funcionamiento de tus equipos de aire acondicionado y calefacción.</p>
+            <h2>Acerca de Nosotros</h2>
+            <section id="aboutsec" class="about-section">
+                <div id="aboutsec">
 
-                <h3>Nuestra Misión</h3>
-                <p class="editable" onclick="toggleEditMode()">Proporcionar un servicio confiable y eficiente, mejorando
-                    la calidad del ambiente en los espacios de nuestros clientes y contribuyendo al ahorro energético.
-                </p>
-
-                <h3>Nuestros Valores</h3>
-                <ul>
-                    <li class="editable" onclick="toggleEditMode()">Calidad</li>
-                    <li class="editable" onclick="toggleEditMode()">Responsabilidad</li>
-                    <li class="editable" onclick="toggleEditMode()">Innovación</li>
-                    <li class="editable" onclick="toggleEditMode()">Compromiso con el cliente</li>
-                </ul>
-
-                <h3>Contacto</h3>
-                <p class="editable" onclick="toggleEditMode()">Si tienes alguna pregunta o deseas saber más sobre
-                    nuestros servicios, no dudes en ponerte en contacto con nosotros.</p>
-                <p class="editable" onclick="toggleEditMode()">Email: contacto@nuestroservicio.com</p>
-                <p class="editable" onclick="toggleEditMode()">Teléfono: +123 456 7890</p>
-
-                <h3>Disponibilidad y precios</h3>
-                <p class="editable" onclick="toggleEditMode()">Normalmente agendamos citas para mantenimiento de lunes a
-                    sábado desde las 12:00pm hasta las 8:00pm.</p>
-                <p class="editable" onclick="toggleEditMode()">Tenemos precios accesibles desde una simple revisada que
-                    puede costar 200 hasta la reparación completa de un dispositivo que podría llegar a costar 2000.</p>
-                <p class="editable" onclick="toggleEditMode()">SOLO HACEMOS MANTENIMIENTO A LOS PRODUCTOS QUE SE
-                    MUESTRAN EN EL CATALOGO</p>
-
-                <button onclick="toggleEditMode()" class="edit-btn">Editar</button>
-                <button onclick="clearText()" class="delete-btn">Borrar</button>
+                </div>
             </section>
 
             <footer>
@@ -90,6 +61,8 @@
             </footer>
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/Acercade.js"></script>
 </body>
 

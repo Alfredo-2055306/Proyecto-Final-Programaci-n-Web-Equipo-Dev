@@ -2,17 +2,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 var misReglasCors = "ReglasCors";
 
-builder.Services.AddCors(option =>
-   option.AddPolicy(name: misReglasCors,
-        builder =>
-        {
-            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReglasCors", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
-        }
-
-   )
-
-);
 
 // Add services to the container.
 

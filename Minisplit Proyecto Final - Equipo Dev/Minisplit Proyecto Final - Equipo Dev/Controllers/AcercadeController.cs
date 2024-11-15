@@ -54,6 +54,51 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             }
         }
 
+        [HttpGet]
+    [Route("Obtener/{IDAcercaDe:int}")]
+    public IActionResult Obtener(int IDAcercaDe)
+    {
+        AcercaDe acercaDe = null;
+
+        try
+        {
+            using (var conexion = new SqlConnection(cadenaSQL))
+            {
+                conexion.Open();
+                var cmd = new SqlCommand("sp_obtener_AcercaDe", conexion);
+                cmd.Parameters.AddWithValue("IDAcercaDe", IDAcercaDe);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        acercaDe = new AcercaDe()
+                        {
+                            IDAcercaDe = Convert.ToInt32(reader["IDAcercaDe"]),
+                            IDUsuario = Convert.ToInt32(reader["IDUsuario"]),
+                            Contenido = reader["Contenido"].ToString()
+                        };
+                    }
+                }
+            }
+
+            if (acercaDe != null)
+            {
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok", response = acercaDe });
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new { mensaje = "Registro no encontrado" });
+            }
+        }
+        catch (Exception error)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
+        }
+    }
+
+
         [HttpPost]
         [Route("Guardar")]
         public IActionResult Guardar([FromBody] AcercaDe objeto)
@@ -78,27 +123,38 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
         }
 
         [HttpPut]
-        [Route("Editar")]
-        public IActionResult Editar([FromBody] AcercaDe objeto)
+        [Route("Editar/{IDAcercaDe:int}")]
+        public IActionResult Editar(int IDAcercaDe, [FromBody] AcercaDe objeto)
         {
+            if (objeto == null || string.IsNullOrWhiteSpace(objeto.Contenido))
+            {
+                return BadRequest(new { mensaje = "El contenido no puede estar vacío o es inválido." });
+            }
+
             try
             {
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
                     var cmd = new SqlCommand("sp_editar_AcercaDe", conexion);
-                    cmd.Parameters.AddWithValue("IDAcercaDe", objeto.IDAcercaDe);
+
+                    cmd.Parameters.AddWithValue("IDAcercaDe", IDAcercaDe);
                     cmd.Parameters.AddWithValue("Contenido", objeto.Contenido);
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Editado" });
+
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Editado con éxito" });
             }
             catch (Exception error)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
             }
         }
+
+
+
 
         [HttpDelete]
         [Route("Eliminar/{IDAcercaDe:int}")]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Minisplit_Proyecto_Final___Equipo_Dev.DTOs;
 using Minisplit_Proyecto_Final___Equipo_Dev.Models;
 using System.Data;
 using System.Data.SqlClient;
@@ -23,21 +24,21 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
         [Route("Lista")]
         public IActionResult Lista()
         {
-            List<Mantenimiento> Lista = new List<Mantenimiento>();
+            List<MantenimientoDTO> Lista = new List<MantenimientoDTO>();
 
             try
             {
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
-                    var cmd = new SqlCommand("usp_listar_mantenimiento", conexion);
+                    var cmd = new SqlCommand("sp_lista_Mantenimiento", conexion);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            Lista.Add(new Mantenimiento()
+                            Lista.Add(new MantenimientoDTO()
                             {
                                 IDMantenimiento = Convert.ToInt32(reader["IDMantenimiento"]),
                                 IDUsuario = Convert.ToInt32(reader["IDUsuario"]),
@@ -46,7 +47,12 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                                 Direccion = reader["Direccion"].ToString(),
                                 ProblemaDescripcion = reader["ProblemaDescripcion"].ToString(),
                                 FechaReservacion = Convert.ToDateTime(reader["FechaReservacion"]),
-                                Aprobada = Convert.ToBoolean(reader["Aprobada"])
+                                Aprobada = Convert.ToBoolean(reader["Aprobada"]),
+
+                                // Relaciones
+                                NombreUsuario = reader["NombreUsuario"].ToString(),
+                                NombreMarca = reader["NombreMarca"].ToString(),
+                                NombreModelo = reader["NombreModelo"].ToString(),
                             });
                         }
                     }
@@ -60,11 +66,13 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             }
         }
 
+
+
         [HttpGet]
         [Route("Obtener/{IDMantenimiento:int}")]
         public IActionResult Obtener(int IDMantenimiento)
         {
-            Mantenimiento mantenimiento = null;
+            MantenimientoDTO mantenimiento = null;
 
             try
             {
@@ -79,7 +87,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                     {
                         if (reader.Read())
                         {
-                            mantenimiento = new Mantenimiento()
+                            mantenimiento = new MantenimientoDTO()
                             {
                                 IDMantenimiento = Convert.ToInt32(reader["IDMantenimiento"]),
                                 IDUsuario = Convert.ToInt32(reader["IDUsuario"]),
@@ -88,7 +96,11 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                                 Direccion = reader["Direccion"].ToString(),
                                 ProblemaDescripcion = reader["ProblemaDescripcion"].ToString(),
                                 FechaReservacion = Convert.ToDateTime(reader["FechaReservacion"]),
-                                Aprobada = Convert.ToBoolean(reader["Aprobada"])
+                                Aprobada = Convert.ToBoolean(reader["Aprobada"]),
+
+                                NombreUsuario = reader["NombreUsuario"].ToString(),
+                                NombreMarca = reader["NombreMarca"].ToString(),
+                                NombreModelo = reader["NombreModelo"].ToString(),
                             };
                         }
                     }
@@ -108,6 +120,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
             }
         }
+
 
         [HttpPost]
         [Route("Guardar")]
