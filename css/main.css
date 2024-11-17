@@ -11,7 +11,11 @@ body {
 
 .container {
     display: flex;
-    height: inherit;
+    height: 100vh;
+    width: 100%;
+}
+
+.tablaman {
     width: 100%;
 }
 
@@ -43,6 +47,12 @@ body {
     border-bottom: 1px solid #ccc;
     background-color: #cdcdcd;
     margin: 30px;
+}
+
+.device:hover {
+    transition-duration: 0.3s;
+    color: rgb(76, 76, 76);
+    background-color: rgba(125, 125, 125, 0.089);
 }
 
 .imgmini {
@@ -169,6 +179,7 @@ nav ul li a:hover {
     padding: 10px;
     margin-bottom: 3px;
     font-weight: bolder;
+    cursor: pointer;
 }
 
 .btn-red {
@@ -284,6 +295,13 @@ td {
     padding: 10px;
     border: 1px solid #ccc;
     text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+td {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 th {

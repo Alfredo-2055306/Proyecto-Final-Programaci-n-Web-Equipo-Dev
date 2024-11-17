@@ -5,6 +5,7 @@ $(document).ready(function () {
     cargarMarcas();
     cargarModelos();
     cargarMinisplits();
+    cargarMinisplitsCliente();
 
     // Función para cargar todas las marcas en el dropdown
     function cargarMarcas() {
@@ -59,6 +60,35 @@ $(document).ready(function () {
                         <p>Modelo: ${minisplit.nombreModelo}</p>
                         <p>Descripción: ${minisplit.descripcion}</p>
                         <button class="btn btn-red" data-idmarca="${minisplit.idMarca}" data-idmodelo="${minisplit.idModelo}">Eliminar</button>
+                    </div>
+                `;
+                    catalogo.append(minisplitHTML);
+                });
+            },
+            error: function (xhr, status, error) {
+                Swal.fire('Error', 'No se pudieron cargar los minisplits: ' + error, 'error');
+            }
+        });
+    }
+
+    // Función para cargar los minisplits en el catálogo
+    function cargarMinisplitsCliente() {
+        $.ajax({
+            url: "https://localhost:7109/api/Minisplit/Lista",
+            type: "GET",
+            dataType: 'json',
+            success: function (result) {
+                const catalogo = $('#catalogoMinisplitsUser');
+                catalogo.empty();
+
+                result.response.forEach(function (minisplit) {
+                    const minisplitHTML = `
+                    <div class="device" data-idmarca="${minisplit.idMarca}" data-idmodelo="${minisplit.idModelo}">
+                        <img class="imgmini" src="${minisplit.imagenRuta}" alt="${minisplit.nombreMinisplit}">
+                        <h3>${minisplit.nombreMinisplit}</h3>
+                        <p>Marca: ${minisplit.nombreMarca}</p>
+                        <p>Modelo: ${minisplit.nombreModelo}</p>
+                        <p>Descripción: ${minisplit.descripcion}</p>
                     </div>
                 `;
                     catalogo.append(minisplitHTML);

@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="../img/logo.png" />
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/mante.css">
-    <link rel="stylesheet" href="../css/coments.css">
+
 </head>
 
 <body>
@@ -22,48 +22,50 @@
                 </div><br>
                 <p class="btnCerrarSesion">Bienvenido</p><br>
                 <button class="btn btn-yellow" id="btnCerrarSesion">Cerrar Sesión</button>
+
             </div>
             <nav>
                 <ul>
-                    <li><a href="../Pantallas Admin/HomeAdmin.html">Home</a>
-                    </li>
-                    <li><a href="../Pantallas Admin/modelo.html">Registrar Marca o Modelos</a></li>
-                    <li><a href="../Pantallas Admin/AñadirMinisplits.html">Añadir minisplits al catálogo</a></li>
-                    <li><a href="../Pantallas Admin/Mantenimiento.html">Administrar solicitudes de mantenimiento</a>
-                    </li>
-                    <li><a href="../Pantallas Admin/Acercade.html">Acerca de</a></li>
-                    <li><a href="../Pantallas Admin/Usuarios.html">Gestión de usuarios</a></li>
-                    <li><a href="../Pantallas Admin/Estadisticas.html">Reporte mensual de estadísticas</a></li>
+                    <li><a href="../Pantallas Logeadas/CatalogoLog.html">Catálogo</a> </li>
+                    <li><a href="../Pantallas Logeadas/MantenimientoLog.html">Mantenimiento</a></li>
+                    <li><a href="../Pantallas Logeadas/Historial.html">Historial de mantenimientos</a></li>
+                    <li><a href="../Pantallas Logeadas/Acercade.html">Acerca de</a> </li>
+                    <li><a href="../Pantallas Logeadas/ayuda.html">Ayuda</a> </li>
+
                 </ul>
-            </nav>
+                </ul>
+            </nav><br><br><br>
             <div class="logo">
                 <div class="circle">
                     <a href="#">
                         <img id="logomain" src="../img/notificacion.png" alt="Logo">
                     </a>
                 </div>
+
             </div>
         </aside>
 
         <main class="main-content">
-            <section class="pending-review-section">
-                <h2>Pendientes de revisión</h2>
-            </section><br><br>
-            <section class="comments-section" id="comments-section">
-                <h2>Comentarios</h2>
-
-            </section><br><br>
-
-            <footer>
-                <h3>Contáctanos!</h3>
-                <p>81 0000 0000</p>
-                <p>ejemplo@gmail.com</p>
-            </footer>
+            <div class="header">
+                <h2>Nos encargamos de darle el mejor mantenimiento a tu empresa</h2>
+            </div>
+            <div class="content">
+                <img src="../img/mantenimiento minisplit.jpg" alt="Mantenimiento de aire acondicionado">
+                <div class="services">
+                    <h3>SERVICIOS</h3>
+                    <ul>
+                        <li>-Reparación</li>
+                        <li>-Seguimiento</li>
+                        <li>-Mantenimiento</li>
+                        <li>-Eficacia</li>
+                    </ul>
+                </div>
+            </div>
         </main>
+
+
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../js/Comentarios.js"></script>
     <script src="../js/Login.js"></script>
 </body>
 

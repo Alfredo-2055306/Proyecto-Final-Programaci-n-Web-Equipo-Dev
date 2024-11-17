@@ -268,6 +268,28 @@ GO
 
 
 
+USE [Danny Server];
+GO
+
+CREATE PROCEDURE usp_autenticar_usuario
+    @Correo VARCHAR(50),
+    @Contraseña VARCHAR(255)
+AS
+BEGIN
+    SELECT 
+        u.IDUsuario,
+        u.Nombre,
+        u.Correo,
+        u.IDRol,
+        r.NombreRol
+    FROM Usuario u
+    INNER JOIN Rol r ON u.IDRol = r.IDRol
+    WHERE u.Correo = @Correo AND u.Contraseña = @Contraseña;
+END;
+GO
+
+
+
 -- Procedimiento para listar usuarios
 CREATE PROC sp_lista_Usuario
 AS
@@ -466,6 +488,36 @@ BEGIN
     INSERT INTO Mantenimiento (IDUsuario, IDMarca, IDModelo, Direccion, ProblemaDescripcion, FechaReservacion, Aprobada)
     VALUES (@IDUsuario, @IDMarca, @IDModelo, @Direccion, @ProblemaDescripcion, @FechaReservacion, @Aprobada);
 END
+
+
+USE [Danny Server];
+GO
+
+CREATE PROCEDURE sp_solicitar_Mantenimiento
+    @IDUsuario INT,
+    @IDMarca INT,
+    @IDModelo INT,
+    @Direccion VARCHAR(200),
+    @ProblemaDescripcion VARCHAR(300),
+    @FechaReservacion DATETIME,
+    @Aprobada BIT
+AS
+BEGIN
+    -- Validar que el Minisplit exista
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Minisplit
+        WHERE IDMarca = @IDMarca AND IDModelo = @IDModelo
+    )
+    BEGIN
+        RAISERROR('El Minisplit especificado no existe.', 16, 1);
+        RETURN;
+    END
+
+    -- Insertar el mantenimiento
+    INSERT INTO Mantenimiento (IDUsuario, IDMarca, IDModelo, Direccion, ProblemaDescripcion, FechaReservacion, Aprobada)
+    VALUES (@IDUsuario, @IDMarca, @IDModelo, @Direccion, @ProblemaDescripcion, @FechaReservacion, @Aprobada);
+END;
 
 
 

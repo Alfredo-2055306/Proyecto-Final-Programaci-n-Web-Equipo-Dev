@@ -106,38 +106,42 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
 
         [HttpPost]
         [Route("Autenticar")]
-        public IActionResult Autenticar([FromBody] Usuario loginData)
+        public IActionResult Autenticar([FromBody] UsuarioLoginDTO loginData)
         {
             if (loginData == null || string.IsNullOrEmpty(loginData.Correo) || string.IsNullOrEmpty(loginData.Contraseña))
             {
-                return BadRequest("Correo o contraseña no proporcionados.");
+                return BadRequest(new { mensaje = "Correo o contraseña no proporcionados." });
             }
+
             try
             {
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
-                    var cmd = new SqlCommand("SELECT * FROM Usuario WHERE Correo = @Correo", conexion);
+
+                    var cmd = new SqlCommand("usp_autenticar_usuario", conexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Correo", loginData.Correo);
+                    cmd.Parameters.AddWithValue("@Contraseña", loginData.Contraseña);
 
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            var contraseñaGuardada = reader["Contraseña"].ToString();
-                            // Verifica que las contraseñas coincidan. Si está encriptada, compara con bcrypt.
-                            if (loginData.Contraseña == contraseñaGuardada)
+                            var usuario = new
                             {
-                                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Autenticado", response = reader["IDUsuario"] });
-                            }
-                            else
-                            {
-                                return StatusCode(StatusCodes.Status401Unauthorized, new { mensaje = "Correo o contraseña incorrectos" });
-                            }
+                                IDUsuario = Convert.ToInt32(reader["IDUsuario"]),
+                                Nombre = reader["Nombre"].ToString(),
+                                Correo = reader["Correo"].ToString(),
+                                IDRol = Convert.ToInt32(reader["IDRol"]),
+                                NombreRol = reader["NombreRol"].ToString()
+                            };
+
+                            return StatusCode(StatusCodes.Status200OK, new { mensaje = "Autenticado", response = usuario });
                         }
                         else
                         {
-                            return StatusCode(StatusCodes.Status404NotFound, new { mensaje = "Usuario no encontrado" });
+                            return StatusCode(StatusCodes.Status401Unauthorized, new { mensaje = "Correo o contraseña incorrectos." });
                         }
                     }
                 }
@@ -147,7 +151,6 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
             }
         }
-
 
 
         [HttpPost]

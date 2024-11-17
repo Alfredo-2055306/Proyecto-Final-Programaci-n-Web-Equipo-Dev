@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Dispositivos</title>
+    <link rel="icon" type="image/png" href="../img/logo.png" />
+    <link rel="stylesheet" href="../css/mante.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <aside id="white-box" class="sidebar">
+            <div class="logo">
+                <div class="circle">
+                    <a href="../Index.html">
+                        <img id="logomain" src="../img/logo.png" alt="Logo">
+                    </a>
+                </div><br>
+                <p class="btnCerrarSesion">Bienvenido</p><br>
+                <button class="btn btn-yellow" id="btnCerrarSesion">Cerrar Sesión</button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../Pantallas Logeadas/HomeCliente.html">Home</a> </li>
+                    <li><a href="../Pantallas Logeadas/CatalogoLog.html">Catalogo</a></li>
+                    <li><a href="../Pantallas Logeadas/Historial.html">Historial de mantenimientos</a></li>
+                    <li><a href="../Pantallas Logeadas/Acercade.html">Acerca de</a> </li>
+                    <li><a href="../Pantallas Logeadas/ayuda.html">Ayuda</a> </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <h2>Nos encargamos de darle el mejor mantenimiento a tu empresa</h2>
+            </div>
+            <div class="form-container">
+                <h2>Solicita tu servicio</h2><br>
+                <form>
+                    <label for="minisplit">Minisplit:</label>
+                    <select style="padding-top: 8px; padding-bottom: 8px; border-radius: 10px; color: rgb(95, 95, 95);"
+                        id="minisplit">
+                        <option value="">Cargando minisplits...</option>
+                    </select>
+
+                    <label for="ubicacion">Ubicación:</label>
+                    <input type="text" id="ubicacion" name="ubicacion">
+
+                    <label for="descripcion">Descripción breve del problema:</label>
+                    <textarea id="descripcion" name="descripcion"></textarea>
+
+                    <label for="fechaReservacion">Fecha y hora:</label>
+                    <input style="padding-top: 8px; padding-bottom: 8px; border-radius: 10px; color: rgb(95, 95, 95);"
+                        type="datetime-local" id="fechaReservacion" name="fechaReservacion">
+
+                    <button type="submit" class="submit-button">Aceptar</button>
+                </form>
+
+
+            </div>
+
+        </main>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/mantenimientosoli.js"></script>
+</body>
+
+</html>

@@ -19,7 +19,8 @@
         </div>
 
         <h2>Registrarse</h2>
-        <form>
+
+        <form id="registerForm">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" required>
 
@@ -29,6 +30,9 @@
             <label for="password">Contraseña:</label>
             <input type="password" id="password" required>
 
+            <label for="confirmarContraseña">Confirmar contraseña:</label>
+            <input type="password" id="confirmarContraseña" required>
+
             <button type="submit">Crear Cuenta</button>
 
             <br>
@@ -36,6 +40,10 @@
             <a class="text-link" href="../Pantallas Sesion/login.html">Iniciar Sesion</a>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/user.js"></script>
+    <script src="../js/Register.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Dispositivos</title>
+    <link rel="icon" type="image/png" href="../img/logo.png" />
+    <link rel="stylesheet" href="../css/mante.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <aside id="white-box" class="sidebar">
+            <div class="logo">
+                <div class="circle">
+                    <a href="../Index.html">
+                        <img id="logomain" src="../img/logo.png" alt="Logo">
+                    </a>
+                </div><br>
+                <p class="btnCerrarSesion">Bienvenido</p><br>
+                <button class="btn btn-yellow" id="btnCerrarSesion">Cerrar Sesión</button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../Pantallas Logeadas/HomeCliente.html">Home</a> </li>
+                    <li><a href="../Pantallas Logeadas/CatalogoLog.html">Catalogo</a></li>
+                    <li><a href="../Pantallas Logeadas/MantenimientoLog.html">Mantenimiento</a></li>
+                    <li><a href="../Pantallas Logeadas/Acercade.html">Acerca de</a> </li>
+                    <li><a href="../Pantallas Logeadas/ayuda.html">Ayuda</a> </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <h2>Registros de mantenimiento</h2>
+            </div>
+            <div class="users-table">
+                <table class="tablaman">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Minisplit</th>
+                            <th>Descripción del problema</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listuser">
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/mantenimientosoli.js"></script>
+</body>
+
+</html>

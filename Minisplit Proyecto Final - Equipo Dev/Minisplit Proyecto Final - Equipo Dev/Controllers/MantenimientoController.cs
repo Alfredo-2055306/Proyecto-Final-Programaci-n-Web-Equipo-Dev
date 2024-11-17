@@ -67,6 +67,52 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("ListaPorUsuario/{IDUsuario:int}")]
+        public IActionResult ListaPorUsuario(int IDUsuario)
+        {
+            List<MantenimientoUsuarioDTO> lista = new List<MantenimientoUsuarioDTO>();
+
+            try
+            {
+                using (var conexion = new SqlConnection(cadenaSQL))
+                {
+                    conexion.Open();
+                    var cmd = new SqlCommand("sp_lista_Mantenimiento", conexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (Convert.ToInt32(reader["IDUsuario"]) == IDUsuario)
+                            {
+                                lista.Add(new MantenimientoUsuarioDTO()
+                                {
+                                    IDMantenimiento = Convert.ToInt32(reader["IDMantenimiento"]),
+                                    NombreMinisplit = $"{reader["NombreMarca"]} - {reader["NombreModelo"]}",
+                                    ProblemaDescripcion = $"{reader["ProblemaDescripcion"]} - {reader["ProblemaDescripcion"]}",
+                                    FechaReservacion = Convert.ToDateTime(reader["FechaReservacion"]),
+                                });
+                            }
+                        }
+                    }
+                }
+
+                if (lista.Count > 0)
+                {
+                    return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok", response = lista });
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, new { mensaje = "No se encontraron mantenimientos para el usuario." });
+                }
+            }
+            catch (Exception error)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
+            }
+        }
 
 
         [HttpGet]
@@ -126,23 +172,40 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
 
         [HttpPost]
         [Route("Guardar")]
-        public IActionResult Guardar([FromBody] Mantenimiento objeto)
+        public IActionResult Guardar([FromBody] MantenimientoCreateDTO objeto)
         {
             try
             {
+                // Validar existencia del Minisplit
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
-                    var cmd = new SqlCommand("sp_guardar_mantenimiento", conexion);
-                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var validarCmd = new SqlCommand(
+                        "SELECT COUNT(1) FROM Minisplit WHERE IDMarca = @IDMarca AND IDModelo = @IDModelo",
+                        conexion
+                    );
+                    validarCmd.Parameters.AddWithValue("@IDMarca", objeto.IDMarca);
+                    validarCmd.Parameters.AddWithValue("@IDModelo", objeto.IDModelo);
+
+                    int existeMinisplit = Convert.ToInt32(validarCmd.ExecuteScalar());
+                    if (existeMinisplit == 0)
+                    {
+                        return StatusCode(StatusCodes.Status400BadRequest, new { mensaje = "El Minisplit no existe." });
+                    }
+
+                    // Guardar el mantenimiento
+                    var cmd = new SqlCommand("sp_solicitar_Mantenimiento", conexion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
                     cmd.Parameters.AddWithValue("@IDUsuario", objeto.IDUsuario);
                     cmd.Parameters.AddWithValue("@IDMarca", objeto.IDMarca);
                     cmd.Parameters.AddWithValue("@IDModelo", objeto.IDModelo);
                     cmd.Parameters.AddWithValue("@Direccion", objeto.Direccion);
                     cmd.Parameters.AddWithValue("@ProblemaDescripcion", objeto.ProblemaDescripcion);
                     cmd.Parameters.AddWithValue("@FechaReservacion", objeto.FechaReservacion);
-                    cmd.Parameters.AddWithValue("@Aprobada", objeto.Aprobada);
-
+                    cmd.Parameters.AddWithValue("@Aprobada", 0); // Por defecto no aprobada
                     cmd.ExecuteNonQuery();
                 }
 
@@ -153,6 +216,9 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
             }
         }
+
+
+
 
         [HttpPut]
         [Route("Aprobar/{IDMantenimiento:int}")]

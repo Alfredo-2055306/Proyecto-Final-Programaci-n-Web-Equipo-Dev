@@ -136,3 +136,44 @@ $(document).ready(function () {
     // Cargar contenido al iniciar
     mostrarAcercaDe();
 });
+
+
+$(document).ready(function () {
+    const apiBaseUrl = "https://localhost:7109/api/AcercaDe/";
+
+    // Mostrar todos los registros "AcercaDe"
+    function mostrarAcercaDeuser() {
+        $.ajax({
+            url: apiBaseUrl + "Lista",
+            type: "GET",
+            dataType: 'json',
+            crossDomain: true,
+        })
+            .done(function (result) {
+                if (result && result.response) {
+                    const listaAcercaDe = result.response;
+                    $("#aboutsec2").empty(); // Limpiar contenido previo
+
+                    listaAcercaDe.forEach(item => {
+                        $("#aboutsec2").append(generarAcercaDeuser(item));
+                    });
+                } else {
+                    $("#aboutsec2").html("<p>No hay información disponible sobre 'Acerca de Nosotros'.</p>");
+                }
+            })
+            .fail(function (xhr, status, error) {
+                console.error("Error al obtener la lista:", error);
+                $("#aboutsec2").html("<p>No hay información disponible sobre 'Acerca de Nosotros'.</p>");
+            });
+    }
+
+    // Generar HTML para cada registro "AcercaDe"
+    function generarAcercaDeuser(about) {
+        return `
+            <div class="textabout card" id="acerca-${about.idAcercaDe}">
+                <p>${about.contenido}</p>
+            </div>
+        `;
+    }
+    mostrarAcercaDeuser()
+});
