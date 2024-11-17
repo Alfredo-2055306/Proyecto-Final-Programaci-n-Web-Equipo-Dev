@@ -21,6 +21,22 @@ body {
     padding: 20px;
 }
 
+.maintenance-card {
+    background-color: yellow;
+    /* Temporal para debugging */
+    border: 2px solid red;
+    /* Temporal para debugging */
+}
+
+.comment-done {
+    color: #808080;
+    background-color: #c1c1c1;
+    border: solid 2px #7b7b7b;
+    padding: 30px;
+    margin: 50px;
+    border-radius: 10px;
+}
+
 .device {
     padding: 10px;
     width: 20rem;
@@ -31,6 +47,13 @@ body {
 
 .imgmini {
     height: 20rem;
+}
+
+.imgsplit {
+    height: 16rem;
+    margin-left: 30px;
+    border-radius: 10px;
+    border: 2px solid #333
 }
 
 .boxflex {
@@ -205,12 +228,16 @@ nav ul li a:hover {
     height: 50px;
 }
 
+.loww {
+    display: flex;
+}
+
 .comment {
     padding: 30px;
     background-color: #cbcbcb;
     margin: 50px;
     border-radius: 10px;
-
+    border: solid 2px #7b7b7b;
 }
 
 .hidden {

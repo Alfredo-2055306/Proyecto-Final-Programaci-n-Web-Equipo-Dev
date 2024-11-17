@@ -71,6 +71,17 @@ CREATE TABLE AcercaDe (
 );
 
 
+INSERT INTO Mantenimiento (IDUsuario, IDMarca, IDModelo, Direccion, ProblemaDescripcion, FechaReservacion, Aprobada) VALUES
+(35, 1, 1, 'Calle Los Pinos 123, Ciudad A', 'El minisplit no enfría correctamente.', '2024-11-10 14:30:00', 0),
+(36, 2, 2, 'Av. Juárez 456, Ciudad B', 'Hace un ruido extraño al encender.', '2024-11-12 09:00:00', 0),
+(37, 3, 3, 'Calle Morelos 789, Ciudad C', 'Tiene una fuga de agua.', '2024-11-14 11:00:00', 0),
+(38, 4, 4, 'Calle Hidalgo 321, Ciudad D', 'No responde al control remoto.', '2024-11-15 16:00:00', 0),
+(39, 35, 35, 'Av. Insurgentes 654, Ciudad E', 'Enciende pero no enfría.', '2024-11-16 10:30:00', 0),
+(40, 36, 36, 'Calle Reforma 987, Ciudad F', 'El compresor no funciona.', '2024-11-17 08:00:00', 0),
+(41, 37, 37, 'Av. Universidad 111, Ciudad G', 'Huele a quemado al encender.', '2024-11-18 13:30:00', 0),
+(42, 38, 38, 'Calle Zaragoza 222, Ciudad H', 'No arranca después de un apagón.', '2024-11-19 15:00:00', 0),
+(43, 39, 39, 'Av. Constitución 333, Ciudad I', 'El ventilador no gira.', '2024-11-20 10:00:00', 0),
+(35, 40, 40, 'Calle Independencia 444, Ciudad J', 'Problemas con el flujo de aire.', '2024-11-21 12:00:00', 0);
 
 
 
@@ -326,6 +337,8 @@ BEGIN
 END
 
 
+USE [Danny Server];
+GO
 
 -- Procedimiento para guardar un minisplit
 CREATE PROC sp_guardar_Minisplit(
@@ -360,6 +373,7 @@ BEGIN
 END;
 GO
 
+
 -- Procedimiento para eliminar un minisplit
 CREATE PROC sp_eliminar_Minisplit(
     @IDMarca INT,
@@ -370,6 +384,7 @@ BEGIN
     DELETE FROM Minisplit WHERE IDMarca = @IDMarca AND IDModelo = @IDModelo;
 END;
 GO
+
 
 
 
@@ -388,29 +403,29 @@ USE [Danny Server];
 GO
 
 
-
-
-
-CREATE PROC sp_lista_Mantenimiento
+CREATE OR ALTER PROC sp_lista_Mantenimiento
 AS
 BEGIN
     SELECT 
         m.IDMantenimiento, 
         m.IDUsuario, 
         u.Nombre AS NombreUsuario, 
-        m.IDMarca, 
-        ma.NombreMarca, 
-        m.IDModelo, 
-        mo.NombreModelo, 
+        ms.IDMarca, 
+        ma.NombreMarca AS NombreMarca, 
+        ms.IDModelo, 
+        mo.NombreModelo AS NombreModelo, 
+		ms.ImagenRuta AS ImagenRuta,
         m.Direccion, 
         m.ProblemaDescripcion, 
         m.FechaReservacion, 
         m.Aprobada
     FROM Mantenimiento m
     INNER JOIN Usuario u ON m.IDUsuario = u.IDUsuario
-    INNER JOIN Marca ma ON m.IDMarca = ma.IDMarca
-    INNER JOIN Modelo mo ON m.IDModelo = mo.IDModelo
-END
+    INNER JOIN Minisplit ms ON m.IDMarca = ms.IDMarca AND m.IDModelo = ms.IDModelo
+    INNER JOIN Marca ma ON ms.IDMarca = ma.IDMarca
+    INNER JOIN Modelo mo ON ms.IDModelo = mo.IDModelo;
+END;
+
 
 
 CREATE PROCEDURE sp_obtener_Mantenimiento
@@ -476,6 +491,25 @@ BEGIN
         Aprobada = @Aprobada
     WHERE IDMantenimiento = @IDMantenimiento;
 END
+
+USE [Danny Server];
+GO
+
+CREATE PROCEDURE sp_aprobar_Mantenimiento
+    @IDMantenimiento INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Mantenimiento
+    SET Aprobada = 1
+    WHERE IDMantenimiento = @IDMantenimiento;
+END;
+
+UPDATE Mantenimiento
+SET Aprobada = 0
+WHERE Aprobada = 1;
+
 
 
 CREATE PROCEDURE sp_eliminar_Mantenimiento
@@ -728,6 +762,21 @@ BEGIN
     DELETE FROM Usuario WHERE IDUsuario = @IDUsuario
 END
 GO
+
+USE [Danny Server]
+
+GO
+
+CREATE PROCEDURE usp_modificar_rol_usuario
+    @IDUsuario INT,
+    @IDRol INT
+AS
+BEGIN
+    UPDATE Usuario
+    SET IDRol = @IDRol
+    WHERE IDUsuario = @IDUsuario;
+END;
+
 
 
 --************************ VALIDAMOS SI EXISTE EL PROCEDIMIENTO ************************--

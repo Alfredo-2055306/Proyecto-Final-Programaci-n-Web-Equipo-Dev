@@ -84,7 +84,7 @@ $(document).ready(function () {
             console.log(error)
             Swal.fire(
                 'Algo salió mal!',
-                'El minisplit no pudo ser eliminado debido a este error: ' + error,
+                'El minisplit no pudo ser eliminado ya que esta siendo usado en un registro de mantenimiento' + error,
                 'error'
             );
         });
@@ -124,6 +124,8 @@ $(document).ready(function () {
         var nombreMinisplit = $("#nombreMinisplit").val();
         var idMarca = $("#brand").val();
         var idModelo = $("#model").val();
+        var nombreModelo = $("#model").val();
+        var nombreMarca = $("#brand").val();
         var descripcion = $("#descripcion").val();
         var imagenRuta = $("#upload").val();
 
@@ -141,6 +143,8 @@ $(document).ready(function () {
             data: JSON.stringify({
                 "IdMarca": idMarca,
                 "IdModelo": idModelo,
+                "NombreModelo": nombreModelo,
+                "NombreMarca": nombreMarca,
                 "NombreMinisplit": nombreMinisplit,
                 "Descripcion": descripcion,
                 "ImagenRuta": imagenRuta
@@ -161,51 +165,6 @@ $(document).ready(function () {
             Swal.fire(
                 'Algo salió mal!',
                 'Ocurrió un error al intentar crear el minisplit: ' + error,
-                'error'
-            );
-        });
-    }
-
-
-
-    function crearSucursal() {
-
-        var horaApertura = $("#horario-ape").val();
-        var horaCierre = $("#horario-cie").val();
-
-        $.ajax({
-            url: "http://localhost:5208/api/Sucursal/Guardar",
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            dataType: 'json',
-            data: JSON.stringify({
-                "idSucursal": 0,
-                "nombreSucursal": $("#nombre").val(),
-                "ubicacion": $("#ubicacion").val(),
-                "phoneNumber": $("#telefono").val(),
-                "descripcion": $("#descripcion").val(),
-                "correoSucursal": $("#correo").val(),
-                "horaApertura": horaApertura,
-                "horaCierre": horaCierre,
-                "diasDisponibles": $("#dias").val(),
-                "incorporacion": $("#ubicacion_gmaps").val()
-            }),
-            crossDomain: true
-        }).done(function (result) {
-            $("#Sucurs").prepend(generarSucursal(result.response));
-            console.log("Funcion crearSucursales: ", result.response);
-            closeModal();
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "¡La sucursal ha sido creada!",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        }).fail(function (xhr, status, error) {
-            Swal.fire(
-                'Algo salio mal!',
-                'Ocurrio un error al intentar crear una nueva Sucursal: ' + error,
                 'error'
             );
         });

@@ -15,6 +15,7 @@
         public string NombreUsuario { get; set; }
         public string NombreMarca { get; set; }
         public string NombreModelo { get; set; }
+        public string ImagenRuta { get; set; }
     }
 
 }

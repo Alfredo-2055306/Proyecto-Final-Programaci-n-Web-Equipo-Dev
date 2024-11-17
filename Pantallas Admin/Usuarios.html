@@ -69,21 +69,22 @@
                 </div>
                 <div class="create-user-form">
                     <h3>Crear usuario nuevo</h3>
-                    <form action="#">
-                        <input type="text" placeholder="Nombre" required>
-                        <input type="email" placeholder="Correo" required>
-                        <input type="password" placeholder="Contraseña" required>
-                        <input type="password" placeholder="Confirmar contraseña" required>
-                        <select required>
+                    <form id="crearUsuarioForm">
+                        <input type="text" id="nombre" placeholder="Nombre" required>
+                        <input type="email" id="correo" placeholder="Correo" required>
+                        <input type="password" id="contraseña" placeholder="Contraseña" required>
+                        <input type="password" id="confirmarContraseña" placeholder="Confirmar contraseña" required>
+                        <select id="rol" required>
                             <option value="" disabled selected>Seleccionar rol</option>
-                            <option value="admin">Administrador</option>
-                            <option value="user">Usuario</option>
+                            <option value="1">Supervisor</option>
+                            <option value="2">Cliente</option>
                         </select>
                         <button class="btn-submit" type="submit">Aceptar</button>
                     </form>
                 </div>
             </div>
         </main>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

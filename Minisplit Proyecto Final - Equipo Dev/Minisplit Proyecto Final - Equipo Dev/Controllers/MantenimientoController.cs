@@ -53,6 +53,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                                 NombreUsuario = reader["NombreUsuario"].ToString(),
                                 NombreMarca = reader["NombreMarca"].ToString(),
                                 NombreModelo = reader["NombreModelo"].ToString(),
+                                ImagenRuta = reader["ImagenRuta"].ToString(),
                             });
                         }
                     }
@@ -101,6 +102,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                                 NombreUsuario = reader["NombreUsuario"].ToString(),
                                 NombreMarca = reader["NombreMarca"].ToString(),
                                 NombreModelo = reader["NombreModelo"].ToString(),
+                                ImagenRuta = reader["ImagenRuta"].ToString(),
                             };
                         }
                     }
@@ -131,7 +133,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
-                    var cmd = new SqlCommand("usp_guardar_mantenimiento", conexion);
+                    var cmd = new SqlCommand("sp_guardar_mantenimiento", conexion);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IDUsuario", objeto.IDUsuario);
                     cmd.Parameters.AddWithValue("@IDMarca", objeto.IDMarca);
@@ -145,6 +147,29 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 }
 
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok" });
+            }
+            catch (Exception error)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("Aprobar/{IDMantenimiento:int}")]
+        public IActionResult Aprobar(int IDMantenimiento)
+        {
+            try
+            {
+                using (var conexion = new SqlConnection(cadenaSQL))
+                {
+                    conexion.Open();
+                    var cmd = new SqlCommand("sp_aprobar_Mantenimiento", conexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("IDMantenimiento", IDMantenimiento);
+                    cmd.ExecuteNonQuery();
+                }
+
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Solicitud de mantenimiento aprobada correctamente" });
             }
             catch (Exception error)
             {
@@ -192,7 +217,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
-                    var cmd = new SqlCommand("usp_eliminar_mantenimiento", conexion);
+                    var cmd = new SqlCommand("sp_eliminar_mantenimiento", conexion);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IDMantenimiento", IDMantenimiento);
 

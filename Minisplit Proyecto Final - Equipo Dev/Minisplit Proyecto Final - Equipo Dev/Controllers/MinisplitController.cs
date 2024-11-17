@@ -113,25 +113,26 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
 
         [HttpPost]
         [Route("Guardar")]
-        public IActionResult Guardar([FromBody] Minisplit objeto)
+        public IActionResult Guardar([FromBody] MinisplitDTO minisplitDTO)
         {
             try
             {
+
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
                     var cmd = new SqlCommand("sp_guardar_Minisplit", conexion);
-                    cmd.Parameters.AddWithValue("IDMarca", objeto.IDMarca);
-                    cmd.Parameters.AddWithValue("IDModelo", objeto.IDModelo);
-                    cmd.Parameters.AddWithValue("NombreMinisplit", objeto.NombreMinisplit);
-                    cmd.Parameters.AddWithValue("Descripcion", objeto.Descripcion);
-                    cmd.Parameters.AddWithValue("ImagenRuta", objeto.ImagenRuta);
+                    cmd.Parameters.AddWithValue("IDMarca", minisplitDTO.IDMarca);
+                    cmd.Parameters.AddWithValue("IDModelo", minisplitDTO.IDModelo);
+                    cmd.Parameters.AddWithValue("NombreMinisplit", minisplitDTO.NombreMinisplit);
+                    cmd.Parameters.AddWithValue("Descripcion", minisplitDTO.Descripcion);
+                    cmd.Parameters.AddWithValue("ImagenRuta", minisplitDTO.ImagenRuta);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.ExecuteNonQuery();
                 }
 
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok" });
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Minisplit registrado correctamente" });
             }
             catch (Exception error)
             {

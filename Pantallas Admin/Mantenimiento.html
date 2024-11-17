@@ -46,120 +46,35 @@
                     </li>
                 </ul>
             </nav><br><br><br>
+            <div class="logo">
+                <div class="circle">
+                    <a href="#">
+                        <img id="logomain" src="../img/notificacion.png" alt="Logo">
+                    </a>
+                </div>
+            </div>
         </aside>
         <main class="form-container">
-            <h2>Solicitudes de mantenimiento pendientes</h2>
-            <!-- <div class="request-card">
-                <div class="user-info">
-                    <h3>User1213_2332</h3>
-                    <p><strong>Modelo:</strong> Sony</p>
-                    <p><strong>Marca:</strong> XZ3_2332</p>
-                    <p><strong>Dirección:</strong> Calle San bernabe, #2230, Ciudad de...</p>
-                    <p><strong>Problema:</strong> Buen día, mi dispositivo está teniendo fallos como apagones
-                        frecuentes
-                        mientras está en uso, además de...</p>
-                    <p><strong>Días Disponibles:</strong></p>
-                    <div class="days">
-                        <button class="btnday">Lunes</button>
-                        <button class="btnday">Martes</button>
-                        <button class="btnday">Jueves</button>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button class="select-time-btn">Seleccionar hora</button>
-                    <button class="confirm-btn">Confirmar Cita</button>
-                </div>
-            </div>
+            <h2>Solicitudes de mantenimiento pendientes a aprobar</h2>
+            <section class="pending-review-section" id="pending-maintenance-section">
 
-            <div class="request-card">
-                <div class="user-info">
-                    <h3>JoseJohan_213</h3>
-                    <p><strong>Modelo:</strong> Sony</p>
-                    <p><strong>Marca:</strong> XZ3_2332</p>
-                    <p><strong>Dirección:</strong> Calle San bernabe, #2230, Ciudad de...</p>
-                    <p><strong>Problema:</strong> Buen día, mi dispositivo está teniendo fallos como apagones
-                        frecuentes
-                        mientras está en uso, además de...</p>
-                    <p><strong>Días Disponibles:</strong></p>
-                    <div class="days">
-                        <button class="btnday">Lunes</button>
-                        <button class="btnday">Martes</button>
-                        <button class="btnday">Jueves</button>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button class="select-time-btn">Seleccionar hora</button>
-                    <button class="confirm-btn">Confirmar Cita</button>
-                </div>
-            </div>
-            <div class="request-card">
-                <div class="user-info">
-                    <h3>User1213_2332</h3>
-                    <p><strong>Modelo:</strong> Sony</p>
-                    <p><strong>Marca:</strong> XZ3_2332</p>
-                    <p><strong>Dirección:</strong> Calle San bernabe, #2230, Ciudad de...</p>
-                    <p><strong>Problema:</strong> Buen día, mi dispositivo está teniendo fallos como apagones
-                        frecuentes
-                        mientras está en uso, además de...</p>
-                    <p><strong>Días Disponibles:</strong></p>
-                    <div class="days">
-                        <button class="btnday">Lunes</button>
-                        <button class="btnday">Martes</button>
-                        <button class="btnday">Jueves</button>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button class="select-time-btn">Seleccionar hora</button>
-                    <button class="confirm-btn">Confirmar Cita</button>
-                </div>
-            </div>
-            <div class="request-card">
-                <div class="user-info">
-                    <h3>User1213_2332</h3>
-                    <p><strong>Modelo:</strong> Sony</p>
-                    <p><strong>Marca:</strong> XZ3_2332</p>
-                    <p><strong>Dirección:</strong> Calle San bernabe, #2230, Ciudad de...</p>
-                    <p><strong>Problema:</strong> Buen día, mi dispositivo está teniendo fallos como apagones
-                        frecuentes
-                        mientras está en uso, además de...</p>
-                    <p><strong>Días Disponibles:</strong></p>
-                    <div class="days">
-                        <button class="btnday">Lunes</button>
-                        <button class="btnday">Martes</button>
-                        <button class="btnday">Jueves</button>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button class="select-time-btn">Seleccionar hora</button>
-                    <button class="confirm-btn">Confirmar Cita</button>
-                </div>
-            </div>
-            <div class="request-card">
-                <div class="user-info">
-                    <h3>User1213_2332</h3>
-                    <p><strong>Modelo:</strong> Sony</p>
-                    <p><strong>Marca:</strong> XZ3_2332</p>
-                    <p><strong>Dirección:</strong> Calle San bernabe, #2230, Ciudad de...</p>
-                    <p><strong>Problema:</strong> Buen día, mi dispositivo está teniendo fallos como apagones
-                        frecuentes
-                        mientras está en uso, además de...</p>
-                    <p><strong>Días Disponibles:</strong></p>
-                    <div class="days">
-                        <button class="btnday">Lunes</button>
-                        <button class="btnday">Martes</button>
-                        <button class="btnday">Jueves</button>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button class="select-time-btn">Seleccionar hora</button>
-                    <button class="confirm-btn">Confirmar Cita</button>
-                </div>
-            </div> -->
+            </section><br><br>
+            <h2>Solicitudes de mantenimiento aprobadas</h2>
+            <section class="approved-section" id="approved-maintenance-section">
+            </section><br><br>
+            <footer>
+                <h3>Contáctanos!</h3>
+                <p>81 0000 0000</p>
+                <p>ejemplo@gmail.com</p>
+            </footer>
+
         </main>
+
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/dist/date-fns.min.js"></script>
     <script src="../js/mantenimiento.js"></script>
 </body>
 

@@ -135,14 +135,3 @@ input[type="file"] {
     border-radius: 4px;
     cursor: pointer;
 }
-
-.btn-red {
-    background-color: #ff0000;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.2em;
-    line-height: 1;
-    cursor: pointer;
-}

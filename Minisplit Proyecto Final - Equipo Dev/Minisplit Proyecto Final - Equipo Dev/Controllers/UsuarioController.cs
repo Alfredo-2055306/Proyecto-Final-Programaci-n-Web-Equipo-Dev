@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Minisplit_Proyecto_Final___Equipo_Dev.DTOs;
 using Minisplit_Proyecto_Final___Equipo_Dev.Models;
 using System.Data;
 using System.Data.SqlClient;
@@ -151,24 +152,30 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
 
         [HttpPost]
         [Route("Guardar")]
-        public IActionResult Guardar([FromBody] Usuario objeto)
+        public IActionResult Guardar([FromBody] UsuarioCrearDTO usuarioDTO)
         {
             try
             {
+                // Validación básica
+                if (usuarioDTO == null)
+                {
+                    return BadRequest(new { mensaje = "Los datos del usuario son inválidos." });
+                }
+
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
                     var cmd = new SqlCommand("usp_registrar_usuario", conexion);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Nombre", objeto.Nombre);
-                    cmd.Parameters.AddWithValue("@Correo", objeto.Correo);
-                    cmd.Parameters.AddWithValue("@Contraseña", objeto.Contraseña);
-                    cmd.Parameters.AddWithValue("@IDRol", objeto.IDRol);
+                    cmd.Parameters.AddWithValue("@Nombre", usuarioDTO.Nombre);
+                    cmd.Parameters.AddWithValue("@Correo", usuarioDTO.Correo);
+                    cmd.Parameters.AddWithValue("@Contraseña", usuarioDTO.Contraseña);
+                    cmd.Parameters.AddWithValue("@IDRol", usuarioDTO.IDRol);
 
                     cmd.ExecuteNonQuery();
                 }
 
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok" });
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Usuario registrado correctamente." });
             }
             catch (Exception error)
             {
@@ -176,33 +183,32 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             }
         }
 
+
         [HttpPut]
         [Route("Editar")]
-        public IActionResult Editar([FromBody] Usuario objeto)
+        public IActionResult Editar([FromBody] UsuarioEditarRolDTO objeto)
         {
             try
             {
                 using (var conexion = new SqlConnection(cadenaSQL))
                 {
                     conexion.Open();
-                    var cmd = new SqlCommand("usp_modificar_usuario", conexion);
+                    var cmd = new SqlCommand("usp_modificar_rol_usuario", conexion); // Nombre del procedimiento
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IDUsuario", objeto.IDUsuario);
-                    cmd.Parameters.AddWithValue("@Nombre", objeto.Nombre);
-                    cmd.Parameters.AddWithValue("@Correo", objeto.Correo);
-                    cmd.Parameters.AddWithValue("@Contraseña", objeto.Contraseña);
                     cmd.Parameters.AddWithValue("@IDRol", objeto.IDRol);
 
                     cmd.ExecuteNonQuery();
                 }
 
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Editado" });
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Rol actualizado correctamente" });
             }
             catch (Exception error)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
             }
         }
+
 
         [HttpDelete]
         [Route("Eliminar/{IDUsuario:int}")]
