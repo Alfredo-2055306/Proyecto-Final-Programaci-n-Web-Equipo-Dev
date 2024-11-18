@@ -168,6 +168,96 @@ nav ul li a:hover {
     font-size: 1.5em;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.notification-container {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.notification-panel {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 300px;
+    z-index: 1000;
+    padding: 15px;
+    display: none;
+}
+
+.notification-panel h4 {
+    margin: 0;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.notification-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-panel li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.notification-panel li:last-child {
+    border-bottom: none;
+}
+
+.hidden {
+    display: none;
+}
+
 .content {
     display: flex;
     align-items: center;
@@ -206,6 +296,10 @@ nav ul li a:hover {
     height: auto;
     border-radius: 5px;
     margin-right: 20px;
+}
+
+img {
+    pointer-events: auto;
 }
 
 .services {

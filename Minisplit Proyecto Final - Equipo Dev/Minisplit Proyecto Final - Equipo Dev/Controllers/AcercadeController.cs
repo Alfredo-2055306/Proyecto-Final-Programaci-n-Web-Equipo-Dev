@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Minisplit_Proyecto_Final___Equipo_Dev.DTOs;
 using Minisplit_Proyecto_Final___Equipo_Dev.Models;
 using System.Data;
 using System.Data.SqlClient;
@@ -54,7 +55,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             }
         }
 
-        [HttpGet]
+    [HttpGet]
     [Route("Obtener/{IDAcercaDe:int}")]
     public IActionResult Obtener(int IDAcercaDe)
     {
@@ -101,8 +102,13 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
 
         [HttpPost]
         [Route("Guardar")]
-        public IActionResult Guardar([FromBody] AcercaDe objeto)
+        public IActionResult Guardar([FromBody] AcercaDeDTO objeto)
         {
+            if (objeto == null || string.IsNullOrWhiteSpace(objeto.Contenido))
+            {
+                return BadRequest(new { mensaje = "Datos inválidos o incompletos." });
+            }
+
             try
             {
                 using (var conexion = new SqlConnection(cadenaSQL))
@@ -114,7 +120,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok" });
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Guardado con éxito" });
             }
             catch (Exception error)
             {
@@ -122,11 +128,12 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             }
         }
 
+
         [HttpPut]
         [Route("Editar/{IDAcercaDe:int}")]
-        public IActionResult Editar(int IDAcercaDe, [FromBody] AcercaDe objeto)
+        public IActionResult Editar(int IDAcercaDe, [FromBody] AcercaDeUpdateDTO dto)
         {
-            if (objeto == null || string.IsNullOrWhiteSpace(objeto.Contenido))
+            if (dto == null || string.IsNullOrWhiteSpace(dto.Contenido))
             {
                 return BadRequest(new { mensaje = "El contenido no puede estar vacío o es inválido." });
             }
@@ -139,7 +146,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                     var cmd = new SqlCommand("sp_editar_AcercaDe", conexion);
 
                     cmd.Parameters.AddWithValue("IDAcercaDe", IDAcercaDe);
-                    cmd.Parameters.AddWithValue("Contenido", objeto.Contenido);
+                    cmd.Parameters.AddWithValue("Contenido", dto.Contenido);
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
@@ -152,8 +159,6 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
             }
         }
-
-
 
 
         [HttpDelete]

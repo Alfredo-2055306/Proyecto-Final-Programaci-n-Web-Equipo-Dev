@@ -39,6 +39,7 @@ $(document).ready(function () {
     }
 
     // Función para cargar las solicitudes de mantenimiento del usuario
+    // Función para cargar las solicitudes de mantenimiento del usuario
     function cargarMantenimientos() {
         $.ajax({
             url: `https://localhost:7109/api/Mantenimiento/ListaPorUsuario/${idUsuario}`,
@@ -48,7 +49,7 @@ $(document).ready(function () {
                     const mantenimientos = response.response;
 
                     if (mantenimientos.length === 0) {
-                        $('#listuser').html('<tr><td colspan="4">No hay solicitudes de mantenimiento registradas.</td></tr>');
+                        $('#listuser').html('<tr><td colspan="6">No hay solicitudes de mantenimiento registradas.</td></tr>');
                         return;
                     }
 
@@ -58,32 +59,37 @@ $(document).ready(function () {
                         const fechaFormateada = fecha.toLocaleDateString(); // Formato de fecha (DD/MM/AAAA)
                         const horaFormateada = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Formato de hora (HH:MM)
 
+                        // Determinar el estado del mantenimiento basado en el valor de 'aprobada'
+                        const estadoAprobacion = mantenimiento.aprobada
+                            ? "Aprobada"
+                            : "Pendiente de aprobación";
+
                         contenidoTabla += `
-                            <tr>
-                                <td>${mantenimiento.idMantenimiento}</td>
-                                <td>${mantenimiento.nombreMinisplit}</td>
-                                <td>${mantenimiento.problemaDescripcion}</td>
-                                <td>${fechaFormateada}</td>
-                                <td>${horaFormateada}</td>
-                            </tr>
-                        `;
+                        <tr>
+                            <td>${mantenimiento.idMantenimiento}</td>
+                            <td>${mantenimiento.nombreMinisplit}</td>
+                            <td>${mantenimiento.problemaDescripcion}</td>
+                            <td>${fechaFormateada}</td>
+                            <td>${horaFormateada}</td>
+                            <td>${estadoAprobacion}</td>
+                        </tr>
+                    `;
                     });
 
                     $('#listuser').html(contenidoTabla);
                 } else {
-                    $('#listuser').html('<tr><td colspan="4">Error al cargar los datos.</td></tr>');
+                    $('#listuser').html('<tr><td colspan="6">Error al cargar los datos.</td></tr>');
                 }
             },
             error: function (xhr, status, error) {
-                console.error("Error al cargar las solicitudes de mantenimiento:", error);
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'No se pudieron cargar las solicitudes de mantenimiento. Inténtalo más tarde.'
+                    title: 'No hay solicitudes',
+                    text: 'Aun no has hecho ninguna solicitud de mantenimiento.'
                 });
             }
         });
     }
+
 
     // Manejo del formulario para registrar un mantenimiento
     $('form').on('submit', function (e) {

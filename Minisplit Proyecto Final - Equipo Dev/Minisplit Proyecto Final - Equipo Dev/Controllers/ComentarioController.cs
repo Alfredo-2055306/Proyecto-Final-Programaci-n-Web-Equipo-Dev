@@ -20,7 +20,6 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             cadenaSQL = config.GetConnectionString("CadenaSQL");
         }
 
-
         [HttpGet]
         [Route("Lista")]
         public IActionResult Lista()
@@ -76,6 +75,64 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("ListaPorUsuario/{IDUsuario:int}")]
+        public IActionResult ListaPorUsuario(int IDUsuario)
+        {
+            List<ComentarioDTO> comentariosAprobados = new List<ComentarioDTO>();
+            List<ComentarioDTO> comentariosPendientes = new List<ComentarioDTO>();
+
+            try
+            {
+                using (var conexion = new SqlConnection(cadenaSQL))
+                {
+                    conexion.Open();
+                    var cmd = new SqlCommand("sp_lista_ComentarioPorUsuario", conexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("IDUsuario", IDUsuario);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var comentario = new ComentarioDTO()
+                            {
+                                IDComentario = Convert.ToInt32(reader["IDComentario"]),
+                                IDUsuario = Convert.ToInt32(reader["IDUsuario"]),
+                                NombreUsuario = reader["Nombre"].ToString(),
+                                ComentarioTexto = reader["Comentario"].ToString(),
+                                FechaCreacion = Convert.ToDateTime(reader["FechaCreacion"]),
+                                FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]),
+                                Aprobada = Convert.ToBoolean(reader["Aprobada"])
+                            };
+
+                            if (comentario.Aprobada)
+                            {
+                                comentariosAprobados.Add(comentario);
+                            }
+                            else
+                            {
+                                comentariosPendientes.Add(comentario);
+                            }
+                        }
+                    }
+                }
+
+                return StatusCode(StatusCodes.Status200OK, new
+                {
+                    mensaje = "ok",
+                    aprobados = comentariosAprobados,
+                    pendientes = comentariosPendientes
+                });
+            }
+            catch (Exception error)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { mensaje = error.Message });
+            }
+        }
+
+
+
 
         [HttpPut]
         [Route("Aprobar/{IDComentario:int}")]
@@ -100,10 +157,9 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("Guardar")]
-        public IActionResult Guardar([FromBody] Comentario objeto)
+        public IActionResult Guardar([FromBody] GuardarComentarioDTO objeto)
         {
             try
             {
@@ -111,15 +167,14 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 {
                     conexion.Open();
                     var cmd = new SqlCommand("sp_guardar_Comentario", conexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("IDUsuario", objeto.IDUsuario);
                     cmd.Parameters.AddWithValue("Comentario", objeto.ComentarioTexto);
                     cmd.Parameters.AddWithValue("FechaCreacion", objeto.FechaCreacion);
-                    cmd.Parameters.AddWithValue("FechaModificacion", objeto.FechaModificacion);
-                    cmd.Parameters.AddWithValue("Aprobada", objeto.Aprobada);
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok" });
+
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Comentario guardado correctamente" });
             }
             catch (Exception error)
             {
@@ -129,7 +184,7 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
 
         [HttpPut]
         [Route("Editar")]
-        public IActionResult Editar([FromBody] Comentario objeto)
+        public IActionResult Editar([FromBody] ComentarioDTO objeto)
         {
             try
             {
@@ -137,15 +192,15 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 {
                     conexion.Open();
                     var cmd = new SqlCommand("sp_editar_Comentario", conexion);
-                    cmd.Parameters.AddWithValue("IDComentario", objeto.IDComentario);
-                    cmd.Parameters.AddWithValue("IDUsuario", objeto.IDUsuario);
-                    cmd.Parameters.AddWithValue("Comentario", objeto.ComentarioTexto);
-                    cmd.Parameters.AddWithValue("FechaModificacion", objeto.FechaModificacion);
-                    cmd.Parameters.AddWithValue("Aprobada", objeto.Aprobada);
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("IDComentario", objeto.IDComentario);
+                    cmd.Parameters.AddWithValue("Comentario", (object)objeto.ComentarioTexto ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("FechaModificacion", DateTime.Now);
+                    cmd.Parameters.AddWithValue("Aprobada", (object)objeto.Aprobada ?? DBNull.Value);
                     cmd.ExecuteNonQuery();
                 }
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Editado" });
+
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Comentario editado correctamente" });
             }
             catch (Exception error)
             {
@@ -163,11 +218,12 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                 {
                     conexion.Open();
                     var cmd = new SqlCommand("sp_eliminar_Comentario", conexion);
-                    cmd.Parameters.AddWithValue("IDComentario", IDComentario);
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("IDComentario", IDComentario);
                     cmd.ExecuteNonQuery();
                 }
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Eliminado" });
+
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Comentario eliminado correctamente" });
             }
             catch (Exception error)
             {

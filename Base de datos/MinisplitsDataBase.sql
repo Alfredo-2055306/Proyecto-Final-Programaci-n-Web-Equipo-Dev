@@ -608,7 +608,8 @@ BEGIN
 END;
 GO
 
-drop proc sp_editar_AcercaDe
+USE [Danny Server];
+GO
 
 -- Procedimiento para editar 'AcercaDe'
 CREATE PROC sp_editar_AcercaDe(
@@ -658,23 +659,63 @@ BEGIN
 END
 
 
--- Procedimiento para guardar un comentario
-CREATE PROC sp_guardar_Comentario(
+
+USE [Danny Server];
+GO
+
+CREATE PROCEDURE sp_lista_ComentarioPorUsuario
+    @IDUsuario INT
+AS
+BEGIN
+    SELECT 
+        c.IDComentario, 
+        c.IDUsuario, 
+        u.Nombre, 
+        c.Comentario, 
+        c.FechaCreacion, 
+        c.FechaModificacion, 
+        c.Aprobada
+    FROM Comentario c
+    INNER JOIN Usuario u ON c.IDUsuario = u.IDUsuario
+    WHERE c.IDUsuario = @IDUsuario
+END
+
+
+CREATE PROCEDURE sp_obtener_ComentarioPorId
+    @IDComentario INT
+AS
+BEGIN
+    SELECT 
+        c.IDComentario, 
+        c.IDUsuario, 
+        u.Nombre, 
+        c.Comentario, 
+        c.FechaCreacion, 
+        c.FechaModificacion, 
+        c.Aprobada
+    FROM Comentario c
+    INNER JOIN Usuario u ON c.IDUsuario = u.IDUsuario
+    WHERE c.IDComentario = @IDComentario;
+END;
+GO
+
+CREATE PROCEDURE sp_guardar_Comentario(
     @IDUsuario INT,
     @Comentario VARCHAR(500),
-    @FechaCreacion DATETIME,
-    @FechaModificacion DATETIME,
-    @Aprobada BIT
+    @FechaCreacion DATETIME
 )
 AS
 BEGIN
     INSERT INTO Comentario (IDUsuario, Comentario, FechaCreacion, FechaModificacion, Aprobada)
-    VALUES (@IDUsuario, @Comentario, @FechaCreacion, @FechaModificacion, @Aprobada);
+    VALUES (@IDUsuario, @Comentario, @FechaCreacion, GETDATE(), 0); -- Aprobada se establece como 0
 END;
 GO
 
--- Procedimiento para editar un comentario
-CREATE PROC sp_editar_Comentario(
+
+USE [Danny Server];
+GO
+
+CREATE PROCEDURE sp_editar_Comentario(
     @IDComentario INT,
     @Comentario VARCHAR(500) NULL,
     @FechaModificacion DATETIME NULL,
@@ -684,11 +725,12 @@ AS
 BEGIN
     UPDATE Comentario 
     SET Comentario = ISNULL(@Comentario, Comentario),
-        FechaModificacion = ISNULL(@FechaModificacion, FechaModificacion),
+        FechaModificacion = ISNULL(@FechaModificacion, GETDATE()), -- Actualiza la fecha a la actual si es nula
         Aprobada = ISNULL(@Aprobada, Aprobada)
     WHERE IDComentario = @IDComentario;
 END;
 GO
+
 
 -- Procedimiento para eliminar un comentario
 CREATE PROC sp_eliminar_Comentario(

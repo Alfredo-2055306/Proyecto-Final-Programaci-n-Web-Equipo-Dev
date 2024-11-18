@@ -7,7 +7,7 @@
     <title>Catálogo de Dispositivos</title>
     <link rel="icon" type="image/png" href="../img/logo.png" />
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/mante.css">
+    <link rel="stylesheet" href="../css/ayuda.css">
 </head>
 
 <body>
@@ -25,10 +25,10 @@
             <nav>
                 <ul>
                     <li><a href="../Pantallas Logeadas/HomeCliente.html">Home</a> </li>
-                    <li><a href="../Pantallas Logeadas/MantenimientoLog.html">Mantenimiento</a></li>
+                    <li><a href="../Pantallas Logeadas/CatalogoLog.html">Catalogo</a></li>
                     <li><a href="../Pantallas Logeadas/Historial.html">Historial de mantenimientos</a></li>
+                    <li><a href="../Pantallas Logeadas/MantenimientoLog.html">Mantenimiento</a></li>
                     <li><a href="../Pantallas Logeadas/Acercade.html">Acerca de</a> </li>
-                    <li><a href="../Pantallas Logeadas/ayuda.html">Ayuda</a> </li>
                 </ul>
             </nav><br><br><br>
             <div class="logo">
@@ -38,35 +38,32 @@
                     </button>
                 </div>
             </div>
+
         </aside>
 
         <main class="main-content">
-            <div class="header">
-                <h2>Nos encargamos de darle el mejor mantenimiento a tu empresa</h2>
+            <div class="comment-container">
+                <h2>Deja tu Comentario</h2><br>
+                <form>
+                    <h4>Tu comentario debera ser aprobado antes de mostrarse</h4>
+                    <textarea id="comentario" name="comentario" placeholder="Escribe tu comentario aquí..."></textarea>
+
+                    <button type="submit" class="submit-button">Enviar Comentario</button>
+                </form>
             </div>
-            <div class="containerbox">
-                <h2>Catálogo de Dispositivos</h2>
-                <main class="main-content">
-                    <div class="containerbox">
-                        <div class="boxflex" id="catalogoMinisplitsUser">
+            <h2 style="margin-left: 50px;">Comentarios comunes</h2>
+            <section class="comments-section" id="comments-section2">
 
-                        </div>
 
-                    </div>
+            </section><br><br>
 
-                </main>
-            </div>
-
-    </div>
-
-    </main>
+        </main>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../js/Minisplits.js"></script>
     <script src="../js/notificaciones.js"></script>
-    <script src="../js/Login.js"></script>
+    <script src="../js/Comentarios.js"></script>
 </body>
 
 </html>

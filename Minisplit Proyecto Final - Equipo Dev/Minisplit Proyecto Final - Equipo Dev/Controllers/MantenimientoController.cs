@@ -91,8 +91,9 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
                                 {
                                     IDMantenimiento = Convert.ToInt32(reader["IDMantenimiento"]),
                                     NombreMinisplit = $"{reader["NombreMarca"]} - {reader["NombreModelo"]}",
-                                    ProblemaDescripcion = $"{reader["ProblemaDescripcion"]} - {reader["ProblemaDescripcion"]}",
+                                    ProblemaDescripcion = $"{reader["ProblemaDescripcion"]}",
                                     FechaReservacion = Convert.ToDateTime(reader["FechaReservacion"]),
+                                    Aprobada = Convert.ToBoolean(reader["Aprobada"]),
                                 });
                             }
                         }

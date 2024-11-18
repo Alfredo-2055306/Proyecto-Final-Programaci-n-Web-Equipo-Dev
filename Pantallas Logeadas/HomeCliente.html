@@ -8,7 +8,6 @@
     <link rel="icon" type="image/png" href="../img/logo.png" />
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/mante.css">
-
 </head>
 
 <body>
@@ -22,26 +21,23 @@
                 </div><br>
                 <p class="btnCerrarSesion">Bienvenido</p><br>
                 <button class="btn btn-yellow" id="btnCerrarSesion">Cerrar Sesión</button>
-
             </div>
             <nav>
                 <ul>
-                    <li><a href="../Pantallas Logeadas/CatalogoLog.html">Catálogo</a> </li>
+                    <li><a href="../Pantallas Logeadas/CatalogoLog.html">Catálogo</a></li>
                     <li><a href="../Pantallas Logeadas/MantenimientoLog.html">Mantenimiento</a></li>
                     <li><a href="../Pantallas Logeadas/Historial.html">Historial de mantenimientos</a></li>
-                    <li><a href="../Pantallas Logeadas/Acercade.html">Acerca de</a> </li>
-                    <li><a href="../Pantallas Logeadas/ayuda.html">Ayuda</a> </li>
-
-                </ul>
+                    <li><a href="../Pantallas Logeadas/Acercade.html">Acerca de</a></li>
+                    <li><a href="../Pantallas Logeadas/ayuda.html">Ayuda</a></li>
                 </ul>
             </nav><br><br><br>
+
             <div class="logo">
                 <div class="circle">
-                    <a href="#">
-                        <img id="logomain" src="../img/notificacion.png" alt="Logo">
-                    </a>
+                    <button id="notification-button" class="notification-btn">
+                        <img id="logomain" src="../img/notificacion.png" alt="Notificaciones" class="notification-icon">
+                    </button>
                 </div>
-
             </div>
         </aside>
 
@@ -54,19 +50,20 @@
                 <div class="services">
                     <h3>SERVICIOS</h3>
                     <ul>
-                        <li>-Reparación</li>
-                        <li>-Seguimiento</li>
-                        <li>-Mantenimiento</li>
-                        <li>-Eficacia</li>
+                        <li>- Reparación</li>
+                        <li>- Seguimiento</li>
+                        <li>- Mantenimiento</li>
+                        <li>- Eficacia</li>
                     </ul>
                 </div>
             </div>
         </main>
-
-
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../js/Login.js"></script>
+    <script src="../js/notificaciones.js"></script>
+    <!-- <script src="../js/Login.js"></script> -->
 </body>
 
 </html>

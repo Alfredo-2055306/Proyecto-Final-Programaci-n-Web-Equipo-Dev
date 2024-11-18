@@ -6,6 +6,7 @@
         public string NombreMinisplit { get; set; }
         public string ProblemaDescripcion { get; set; } 
         public DateTime FechaReservacion { get; set; }
+        public bool Aprobada { get; set; }
 
     }
 }
