@@ -61,8 +61,6 @@ namespace Minisplit_Proyecto_Final___Equipo_Dev.Controllers
         }
 
 
-
-
         [HttpGet]
         [Route("Obtener/{IDMarca:int}/{IDModelo:int}")]
         public IActionResult Obtener(int IDMarca, int IDModelo)

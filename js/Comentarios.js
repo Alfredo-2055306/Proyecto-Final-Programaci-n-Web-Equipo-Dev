@@ -1,226 +1,3 @@
-const currentPath = window.location.pathname;
-
-$(document).ready(function () {
-    // Función para traer los comentarios de la API
-    function traerComentarios() {
-        $.ajax({
-            url: "https://localhost:7109/api/Comentario/Lista",
-            type: "GET",
-            dataType: 'json',
-            crossDomain: true
-        }).done(function (result) {
-            // Procesar comentarios aprobados
-            $(result.aprobados).each(function () {
-                $("#comments-section").append(generarComentario(this));
-            });
-
-            // Procesar comentarios pendientes de revisión
-            $(result.pendientes).each(function () {
-                $(".pending-review-section").append(generarComentarioPendiente(this));
-            });
-        }).fail(function (xhr, status, error) {
-            Swal.fire("Error", "No se pudieron traer los comentarios: " + error, "error");
-        });
-    }
-
-    // Generar HTML para cada comentario aprobado
-    function generarComentario(comment) {
-        return `
-            <div class="comment" data-id="${comment.idComentario}">
-                <p><strong>${comment.nombreUsuario}:</strong> ${comment.comentarioTexto}</p>
-                <small>Fecha: ${new Date(comment.fechaCreacion).toLocaleDateString()}</small>
-                <button class="delete-btn">🗑️</button>
-            </div>
-        `;
-    }
-
-    // Generar HTML para cada comentario pendiente
-    function generarComentarioPendiente(comment) {
-        return `
-            <div class="comment pending" data-id="${comment.idComentario}">
-                <p><strong>${comment.nombreUsuario}:</strong> ${comment.comentarioTexto}</p>
-                <small>Fecha: ${new Date(comment.fechaCreacion).toLocaleDateString()}</small>
-                <button class="acept-btn">✅</button>
-                <button class="delete-btn">🗑️</button>
-                <div class="reply-form hidden">
-                    <input type="text" class="reply-input" placeholder="Escribe tu respuesta">
-                    <button class="send-reply-btn">Enviar respuesta</button>
-                </div>
-                <div class="replies"></div>
-            </div>
-        `;
-    }
-
-    // Función para aprobar un comentario
-    function aprobarComentario(idComentario, btnAceptar) {
-        $.ajax({
-            url: "https://localhost:7109/api/Comentario/Aprobar/" + idComentario,
-            type: 'PUT',
-            contentType: "application/json; charset=utf-8",
-            crossDomain: true
-        }).done(function () {
-            // Mueve el comentario aprobado a la sección de comentarios aprobados
-            const comment = $(btnAceptar).closest(".comment");
-            comment.removeClass("pending");
-            comment.find(".acept-btn").remove(); // Elimina el botón de aprobación
-            $("#comments-section").append(comment); // Mueve el comentario aprobado a la sección principal
-
-            Swal.fire("Éxito", "Comentario aprobado correctamente", "success");
-        }).fail(function (xhr, status, error) {
-            Swal.fire("Error", "No se pudo aprobar el comentario: " + error, "error");
-        });
-    }
-
-    // Evento para aprobar un comentario
-    $(".pending-review-section").on("click", ".acept-btn", function () {
-        const idComentario = $(this).closest(".comment").data("id");
-        const btnAceptar = this;
-
-        Swal.fire({
-            title: '¿Aprobar este comentario?',
-            text: "El comentario será aprobado y movido a la sección de comentarios aprobados.",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, aprobar',
-            cancelButtonText: 'No, cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                aprobarComentario(idComentario, btnAceptar);
-            }
-        });
-    });
-    // Cargar comentarios al inicio
-    traerComentarios();
-
-    // Evento para eliminar un comentario
-    $("#comments-section").on("click", ".delete-btn", function () {
-        const idComentario = $(this).closest(".comment").data("id");
-        const btnDelete = this;
-
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡Esta es una acción irreversible!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'No, cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                borrarComentario(idComentario, btnDelete);
-            }
-        });
-    });
-
-    // Función para borrar un comentario
-    function borrarComentario(idComentario, btnDelete) {
-        $.ajax({
-            url: "https://localhost:7109/api/Comentario/Eliminar/" + idComentario,
-            type: 'DELETE',
-            contentType: "application/json; charset=utf-8",
-            crossDomain: true
-        }).done(function () {
-            $(btnDelete).closest(".comment").remove();
-            Swal.fire("Éxito", "Comentario eliminado correctamente", "success");
-        }).fail(function (xhr, status, error) {
-            Swal.fire("Error", "No se pudo eliminar el comentario: " + error, "error");
-        });
-    }
-
-    // Evento para mostrar el formulario de respuesta
-    $("#comments-section").on("click", ".reply-btn", function () {
-        const replyForm = $(this).siblings(".reply-form");
-
-        // Mostrar el formulario de respuesta si está oculto y ocultar si ya se mostró
-        if (replyForm.hasClass("hidden")) {
-            $(".reply-form").addClass("hidden"); // Oculta otros formularios de respuesta
-            replyForm.removeClass("hidden");
-        } else {
-            replyForm.addClass("hidden");
-        }
-    });
-
-
-
-
-    // Evento para eliminar un comentario pendiente
-    $(".pending-review-section").on("click", ".delete-btn", function () {
-        const idComentario = $(this).closest(".comment").data("id");
-        const btnDelete = this;
-
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡Esta es una acción irreversible!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'No, cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                borrarComentario(idComentario, btnDelete);
-            }
-        });
-    });
-
-    // Función para borrar un comentario
-    function borrarComentario(idComentario, btnDelete) {
-        $.ajax({
-            url: "https://localhost:7109/api/Comentario/Eliminar/" + idComentario,
-            type: 'DELETE',
-            contentType: "application/json; charset=utf-8",
-            crossDomain: true
-        }).done(function () {
-            $(btnDelete).closest(".comment").remove();
-            Swal.fire("Éxito", "Comentario eliminado correctamente", "success");
-        }).fail(function (xhr, status, error) {
-            Swal.fire("Error", "No se pudo eliminar el comentario: " + error, "error");
-        });
-    }
-
-    // Evento para mostrar el formulario de respuesta
-    $(".pending-review-section").on("click", ".reply-btn", function () {
-        const replyForm = $(this).siblings(".reply-form");
-
-        // Mostrar el formulario de respuesta si está oculto y ocultar si ya se mostró
-        if (replyForm.hasClass("hidden")) {
-            $(".reply-form").addClass("hidden"); // Oculta otros formularios de respuesta
-            replyForm.removeClass("hidden");
-        } else {
-            replyForm.addClass("hidden");
-        }
-    });
-
-
-    function traerComentariosUsuario() {
-        $.ajax({
-            url: "https://localhost:7109/api/Comentario/Lista",
-            type: "GET",
-            dataType: 'json',
-            crossDomain: true
-        }).done(function (result) {
-            // Procesar comentarios aprobados
-            $(result.aprobados).each(function () {
-                $("#comments-section2").prepend(generarComentarioUsuario(this));
-            });
-
-        }).fail(function (xhr, status, error) {
-            Swal.fire("Error", "No se pudieron traer los comentarios: " + error, "error");
-        });
-    }
-
-    // Generar HTML para cada comentario aprobado
-    function generarComentarioUsuario(comment) {
-        return `
-            <div class="comment" data-id="${comment.idComentario}">
-                <p><strong>${comment.nombreUsuario}:</strong> ${comment.comentarioTexto}</p>
-                <br>
-                <small>Fecha: ${new Date(comment.fechaCreacion).toLocaleDateString()}</small>
-            </div>
-        `;
-    }
-
-    traerComentariosUsuario()
-});
-
 $(document).ready(function () {
     // Verificar si el usuario está logueado
     const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
@@ -235,33 +12,179 @@ $(document).ready(function () {
         return;
     }
 
-    // Evento para el formulario de enviar comentario
-    $('form').on('submit', function (event) {
-        event.preventDefault(); // Evita el envío predeterminado del formulario
+    const idUsuario = usuarioGuardado.idUsuario;
 
-        // Obtener el comentario del textarea
+    // Función para cargar todos los comentarios (supervisores)
+    function traerComentarios() {
+        $.ajax({
+            url: "https://localhost:7109/api/Comentario/Lista",
+            type: "GET",
+            dataType: 'json',
+            crossDomain: true
+        }).done(function (result) {
+            // Procesar comentarios aprobados
+            $(result.aprobados).each(function () {
+                $("#comments-section").prepend(generarComentario(this));
+            });
+
+            // Procesar comentarios pendientes de revisión
+            $(result.pendientes).each(function () {
+                $(".pending-review-section").prepend(generarComentarioPendiente(this));
+            });
+        }).fail(function (xhr, status, error) {
+            Swal.fire("Error", "No se pudieron traer los comentarios: " + error, "error");
+        });
+    }
+
+    // Función para traer los comentarios del usuario
+    function traerComentariosUsuario() {
+        $.ajax({
+            url: `https://localhost:7109/api/Comentario/ListaPorUsuario/${idUsuario}`, // URL con el idUsuario
+            type: "GET",
+            dataType: 'json',
+            crossDomain: true
+        }).done(function (result) {
+            // Verificar si hay comentarios aprobados
+            if (result.aprobados && result.aprobados.length > 0) {
+                $(result.aprobados).each(function () {
+                    $("#comments-section2").prepend(generarComentarioUsuario(this)); // Añadir comentario aprobado al DOM
+                });
+            } else {
+                $("#comments-section2").append('<p>No tienes comentarios aprobados.</p>'); // Mensaje si no hay comentarios aprobados
+            }
+        }).fail(function (xhr, status, error) {
+            Swal.fire("Error", "No se pudieron traer los comentarios: " + error, "error");
+        });
+    }
+
+    // Generar HTML para cada comentario aprobado (supervisores)
+    function generarComentario(comment) {
+        return `
+            <div class="comment" data-id="${comment.idComentario}">
+                <p><strong>${comment.nombreUsuario}:</strong> ${comment.comentarioTexto}</p>
+                <small>Fecha: ${new Date(comment.fechaCreacion).toLocaleDateString()}</small>
+                <button class="delete-btn">🗑️</button>
+            </div>
+        `;
+    }
+
+    // Generar HTML para cada comentario pendiente de revisión (supervisores)
+    function generarComentarioPendiente(comment) {
+        return `
+            <div class="comment pending" data-id="${comment.idComentario}">
+                <p><strong>${comment.nombreUsuario}:</strong> ${comment.comentarioTexto}</p>
+                <small>Fecha: ${new Date(comment.fechaCreacion).toLocaleDateString()}</small>
+                <button class="acept-btn">✅</button>
+                <button class="delete-btn">🗑️</button>
+            </div>
+        `;
+    }
+
+    // Generar HTML para cada comentario aprobado del usuario
+    function generarComentarioUsuario(comment) {
+        return `
+            <div class="comment" data-id="${comment.idComentario}">
+                <p><strong>${comment.nombreUsuario}:</strong> ${comment.comentarioTexto}</p>
+                <br>
+                <small>Fecha: ${new Date(comment.fechaCreacion).toLocaleDateString()}</small>
+                <button class="delete-btn">🗑️</button> 
+            </div>
+        `;
+    }
+
+    // Función para aprobar un comentario (supervisores)
+    function aprobarComentario(idComentario, btnAceptar) {
+        $.ajax({
+            url: "https://localhost:7109/api/Comentario/Aprobar/" + idComentario,
+            type: 'PUT',
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true
+        }).done(function () {
+            const comment = $(btnAceptar).closest(".comment");
+            comment.removeClass("pending");
+            comment.find(".acept-btn").remove(); // Elimina el botón de aprobación
+            $("#comments-section").append(comment); // Mueve el comentario aprobado a la sección principal
+
+            Swal.fire("Éxito", "Comentario aprobado correctamente", "success");
+        }).fail(function (xhr, status, error) {
+            Swal.fire("Error", "No se pudo aprobar el comentario: " + error, "error");
+        });
+    }
+
+    // Función para borrar un comentario
+    function borrarComentario(idComentario, btnDelete) {
+        $.ajax({
+            url: `https://localhost:7109/api/Comentario/Eliminar/${idComentario}`,
+            type: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true
+        }).done(function () {
+            $(btnDelete).closest(".comment").remove();
+            Swal.fire("Éxito", "Comentario eliminado correctamente", "success");
+        }).fail(function (xhr, status, error) {
+            Swal.fire("Error", "No se pudo eliminar el comentario: " + error, "error");
+        });
+    }
+
+    // Eventos para supervisores
+    $(".pending-review-section").on("click", ".acept-btn", function () {
+        const idComentario = $(this).closest(".comment").data("id");
+        aprobarComentario(idComentario, this);
+    });
+
+    $(".pending-review-section, #comments-section").on("click", ".delete-btn", function () {
+        const idComentario = $(this).closest(".comment").data("id");
+        borrarComentario(idComentario, this);
+    });
+
+    // Evento para eliminar un comentario del usuario
+    $("#comments-section2").on("click", ".delete-btn", function () {
+        const idComentario = $(this).closest(".comment").data("id");
+        const btnDelete = this;
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esta es una acción irreversible!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'No, cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                borrarComentario(idComentario, btnDelete); // Llamar función para borrar comentario
+            }
+        });
+    });
+
+    // Cargar los comentarios al inicio
+    if (usuarioGuardado.idRol === 1) {
+        traerComentarios(); // Supervisores
+    } else {
+        traerComentariosUsuario(); // Clientes
+    }
+
+    // Evento para enviar un comentario
+    $('form').on('submit', function (event) {
+        event.preventDefault();
         const comentarioTexto = $('#comentario').val().trim();
         if (comentarioTexto === "") {
             Swal.fire("Error", "El comentario no puede estar vacío.", "error");
             return;
         }
 
-        // Construir el JSON con los datos necesarios
         const data = {
-            idUsuario: usuarioGuardado.idUsuario, // Obtener el ID del usuario del local storage
+            idUsuario: idUsuario,
             comentarioTexto: comentarioTexto,
-            fechaCreacion: new Date().toISOString() // Fecha actual en formato ISO
+            fechaCreacion: new Date().toISOString()
         };
 
-        // Enviar el comentario a la API
         $.ajax({
             url: "https://localhost:7109/api/Comentario/Guardar",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function () {
-                Swal.fire("Éxito", "Su comentario sera enviado para revisón, muchas gracias por comentar.", "success");
-                // Limpiar el formulario
+                Swal.fire("Éxito", "Su comentario será enviado para revisión.", "success");
                 $('#comentario').val('');
             },
             error: function (xhr, status, error) {
@@ -270,12 +193,44 @@ $(document).ready(function () {
         });
     });
 
+
+
+    function traerComentariosUsuariocom() {
+        $.ajax({
+            url: "https://localhost:7109/api/Comentario/Lista",
+            type: "GET",
+            dataType: 'json',
+            crossDomain: true
+        }).done(function (result) {
+            // Procesar comentarios aprobados
+            $(result.aprobados).each(function () {
+                $("#comments-section3").prepend(generarComentarioUsuario3(this));
+            });
+
+        }).fail(function (xhr, status, error) {
+            Swal.fire("Error", "No se pudieron traer los comentarios: " + error, "error");
+        });
+    }
+
+    // Generar HTML para cada comentario aprobado
+    function generarComentarioUsuario3(comment) {
+        return `
+            <div class="comment" data-id="${comment.idComentario}">
+                <p><strong>${comment.nombreUsuario}:</strong> ${comment.comentarioTexto}</p>
+                <br>
+                <small>Fecha: ${new Date(comment.fechaCreacion).toLocaleDateString()}</small>
+            </div>
+        `;
+    }
+
+    traerComentariosUsuariocom()
+
     // Botón para cerrar sesión
     $('#btnCerrarSesion').on('click', function () {
         localStorage.removeItem("usuario");
         window.location.href = "../Pantallas Sesion/login.html";
     });
 
-    const idUsuario = usuarioGuardado.idUsuario;
+    // Mostrar nombre del usuario logueado
     $(".btnCerrarSesion").text("Bienvenido " + usuarioGuardado.nombre);
 });

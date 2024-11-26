@@ -172,6 +172,48 @@ $(document).ready(function () {
             });
     }
 
+    // Mostrar todos los registros "AcercaDe"
+    function mostrarAcercaDeUser() {
+        $.ajax({
+            url: apiBaseUrl + "Lista",
+            type: "GET",
+            dataType: "json",
+            crossDomain: true,
+        })
+            .done(function (result) {
+                if (result && result.response) {
+                    const listaAcercaDe = result.response;
+                    $("#aboutsec1").empty(); // Limpiar contenido previo
+
+                    listaAcercaDe.forEach((item) => {
+                        $("#aboutsec1").append(generarAcercaDeUsuarios(item));
+                    });
+                } else {
+                    $("#aboutsec1").html("<p>No hay información disponible sobre 'Acerca de Nosotros'.</p>");
+                }
+            })
+            .fail(function (xhr, status, error) {
+                console.error("Error al obtener la lista:", error);
+                $("#aboutsec1").html("<p>No hay información disponible sobre 'Acerca de Nosotros'.</p>");
+            });
+    }
+
+    // Generar HTML para cada registro "AcercaDe"
+    function generarAcercaDeUsuarios(about) {
+        return `
+                <div class="textabout card" id="acerca-${about.idAcercaDe}">
+                    <p>${about.contenido}</p>
+                </div>
+            `;
+    }
+
     // Cargar contenido al iniciar
     mostrarAcercaDe();
+    mostrarAcercaDeUser();
+
+    // Botón para cerrar sesión
+    $('#btnCerrarSesion').on('click', function () {
+        localStorage.removeItem("usuario");
+        window.location.href = "../Pantallas Sesion/login.html";
+    });
 });

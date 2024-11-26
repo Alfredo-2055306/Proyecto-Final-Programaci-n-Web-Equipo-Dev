@@ -41,18 +41,12 @@
             </div>
             <div class="form-container">
                 <h2>Solicita tu servicio</h2><br>
-                <p class="note">*Es necesario iniciar sesión para solicitar un mantenimiento</p><br>
+                <p class="note">*Es necesario iniciar sesión para solicitar un mantenimiento</p>
                 <form>
-                    <label for="marca">Marca:</label>
-                    <select id="marca">
-                        <option value="CoolAir">CoolAir</option>
-                        <option value="AirPlus">AirPlus</option>
-                    </select>
-
-                    <label for="modelo">Modelo:</label>
-                    <select id="modelo">
-                        <option value="Split AC 1234">Split AC 1234</option>
-                        <option value="Window AC 5678">Window AC 5678</option>
+                    <label for="minisplit">Minisplit:</label>
+                    <select style="padding-top: 8px; padding-bottom: 8px; border-radius: 10px; color: rgb(95, 95, 95);"
+                        id="minisplit">
+                        <option value="">Cargando minisplits...</option>
                     </select>
 
                     <label for="ubicacion">Ubicación:</label>
@@ -61,24 +55,23 @@
                     <label for="descripcion">Descripción breve del problema:</label>
                     <textarea id="descripcion" name="descripcion"></textarea>
 
-                    <label>Días disponibles:</label>
-                    <div class="days">
-                        <button type="button">L</button>
-                        <button type="button">Ma</button>
-                        <button type="button">Mi</button>
-                        <button type="button">J</button>
-                        <button type="button">V</button>
-                        <button type="button">S</button>
-                    </div>
+                    <label for="fechaReservacion">Fecha y hora:</label>
+                    <input style="padding-top: 8px; padding-bottom: 8px; border-radius: 10px; color: rgb(95, 95, 95);"
+                        type="datetime-local" id="fechaReservacion" name="fechaReservacion">
 
                     <button type="submit" class="submit-button">Aceptar</button>
                 </form>
+
+
             </div>
 
         </main>
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/notloged.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,41 @@
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+    margin: 0 10px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+thead {
+    background-color: #f4f4f4;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.content {
+    display: block;
+}

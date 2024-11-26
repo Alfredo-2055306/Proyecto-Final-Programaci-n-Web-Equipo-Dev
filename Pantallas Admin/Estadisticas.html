@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de stadisticas</title>
+    <link rel="icon" type="image/png" href="../img/logo.png" />
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/mante.css">
+    <link rel="stylesheet" href="../css/esta.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <aside id="white-box" class="sidebar">
+            <div class="logo">
+                <div class="circle">
+                    <a href="../Index.html">
+                        <img id="logomain" src="../img/logo.png" alt="Logo">
+                    </a>
+                </div><br>
+                <p class="btnCerrarSesion">Bienvenido</p><br>
+                <button class="btn btn-yellow" id="btnCerrarSesion">Cerrar Sesión</button>
+
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../Pantallas Admin/HomeAdmin.html">Home</a>
+                    </li>
+                    <li><a href="../Pantallas Admin/modelo.html">Registrar
+                            Marca o Modelos</a>
+                    </li>
+                    <li><a href="../Pantallas Admin/AñadirMinisplits.html">Añadir
+                            minisplits al catalogo</a>
+                    </li>
+                    <li><a href="../Pantallas Admin/Mantenimiento.html">Administrar
+                            solicitudes de mantenimiento</a>
+                    </li>
+                    <li><a href="../Pantallas Admin/Ayuda.html">Ayuda</a>
+                    </li>
+                    <li><a href="../Pantallas Admin/Acercade.html">Acerca
+                            de</a></li>
+                    <li><a href="../Pantallas Admin/Usuarios.html">Gestión
+                            de usuarios</a>
+                    </li>
+                </ul>
+            </nav><br><br><br>
+            <div class="logo">
+                <div class="circle">
+                    <button id="notification-button" class="notification-btn">
+                        <img id="logomain" src="../img/notificacion.png" alt="Notificaciones" class="notification-icon">
+                    </button>
+                </div>
+            </div>
+
+        </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <h2>Estadísticas generales</h2>
+            </div>
+            <div class="content">
+                <!-- Sección de estadísticas -->
+                <div class="stat-item">
+                    <h3>Canitdad de mantenimientos hechos en total:</h3>
+                </div><br><br>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <h3>Dias en los que mas mantenimientos se solicitan:</h3>
+                        <canvas id="barChart"></canvas>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Dispositivos con mayor mantenimiento</h3>
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                </div>
+
+                <h1>Tabla de Mantenimientos</h1>
+                <table id="tabla-mantenimientos" class="display"
+                    style="padding-top: 12px; margin-bottom: 12px; width:100%"><br>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuario</th>
+                            <th>Dirección</th>
+                            <th>Minisplit</th>
+                            <th>Problema</th>
+                            <th>Hora</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
+
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="../js/Notificacionesadmin.js"></script>
+    <script src="../js/Login.js"></script>
+    <script src="../js/Graficas.js"></script>
+
+</body>
+
+</html>

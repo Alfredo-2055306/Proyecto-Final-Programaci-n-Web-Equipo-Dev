@@ -52,9 +52,12 @@ $(document).ready(function () {
                 catalogo.empty();
 
                 result.response.forEach(function (minisplit) {
+                    // Reemplazar "C:\fakepath" con "../img/"
+                    const imagenRuta = minisplit.imagenRuta.replace(/^C:\\fakepath\\/, "../img/");
+
                     const minisplitHTML = `
                     <div class="device" data-idmarca="${minisplit.idMarca}" data-idmodelo="${minisplit.idModelo}">
-                        <img class="imgmini" src="${minisplit.imagenRuta}" alt="${minisplit.nombreMinisplit}">
+                        <img class="imgmini" src="${imagenRuta}" alt="${minisplit.nombreMinisplit}">
                         <h3>${minisplit.nombreMinisplit}</h3>
                         <p>Marca: ${minisplit.nombreMarca}</p>
                         <p>Modelo: ${minisplit.nombreModelo}</p>
@@ -71,6 +74,7 @@ $(document).ready(function () {
         });
     }
 
+
     // Función para cargar los minisplits en el catálogo
     function cargarMinisplitsCliente() {
         $.ajax({
@@ -82,9 +86,12 @@ $(document).ready(function () {
                 catalogo.empty();
 
                 result.response.forEach(function (minisplit) {
+                    // Reemplazar "C:\fakepath" con "../img/"
+                    const imagenRuta = minisplit.imagenRuta.replace(/^C:\\fakepath\\/, "../img/");
+
                     const minisplitHTML = `
                     <div class="device" data-idmarca="${minisplit.idMarca}" data-idmodelo="${minisplit.idModelo}">
-                        <img class="imgmini" src="${minisplit.imagenRuta}" alt="${minisplit.nombreMinisplit}">
+                        <img class="imgmini" src="${imagenRuta}" alt="${minisplit.nombreMinisplit}">
                         <h3>${minisplit.nombreMinisplit}</h3>
                         <p>Marca: ${minisplit.nombreMarca}</p>
                         <p>Modelo: ${minisplit.nombreModelo}</p>
@@ -192,11 +199,13 @@ $(document).ready(function () {
             });
         }).fail(function (xhr, status, error) {
             console.log(xhr.responseText); // Imprime la respuesta del servidor para más detalles
-            Swal.fire(
-                'Algo salió mal!',
-                'Ocurrió un error al intentar crear el minisplit: ' + error,
-                'error'
-            );
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "¡El minisplit ha sido creado!",
+                showConfirmButton: false,
+                timer: 1500
+            });
         });
     }
 

@@ -71,17 +71,102 @@ CREATE TABLE AcercaDe (
 );
 
 
-INSERT INTO Mantenimiento (IDUsuario, IDMarca, IDModelo, Direccion, ProblemaDescripcion, FechaReservacion, Aprobada) VALUES
-(35, 1, 1, 'Calle Los Pinos 123, Ciudad A', 'El minisplit no enfría correctamente.', '2024-11-10 14:30:00', 0),
-(36, 2, 2, 'Av. Juárez 456, Ciudad B', 'Hace un ruido extraño al encender.', '2024-11-12 09:00:00', 0),
-(37, 3, 3, 'Calle Morelos 789, Ciudad C', 'Tiene una fuga de agua.', '2024-11-14 11:00:00', 0),
-(38, 4, 4, 'Calle Hidalgo 321, Ciudad D', 'No responde al control remoto.', '2024-11-15 16:00:00', 0),
-(39, 35, 35, 'Av. Insurgentes 654, Ciudad E', 'Enciende pero no enfría.', '2024-11-16 10:30:00', 0),
-(40, 36, 36, 'Calle Reforma 987, Ciudad F', 'El compresor no funciona.', '2024-11-17 08:00:00', 0),
-(41, 37, 37, 'Av. Universidad 111, Ciudad G', 'Huele a quemado al encender.', '2024-11-18 13:30:00', 0),
-(42, 38, 38, 'Calle Zaragoza 222, Ciudad H', 'No arranca después de un apagón.', '2024-11-19 15:00:00', 0),
-(43, 39, 39, 'Av. Constitución 333, Ciudad I', 'El ventilador no gira.', '2024-11-20 10:00:00', 0),
-(35, 40, 40, 'Calle Independencia 444, Ciudad J', 'Problemas con el flujo de aire.', '2024-11-21 12:00:00', 0);
+-- Inserciones para la tabla Rol
+INSERT INTO Rol (NombreRol) VALUES 
+('Supervisor'),
+('Cliente');
+
+-- Inserciones para la tabla Marca
+INSERT INTO Marca (NombreMarca) VALUES 
+('Samsung'),
+('LG'),
+('Midea'),
+('Carrier'),
+('Panasonic'),
+('Daikin'),
+('TCL'),
+('Hitachi'),
+('Gree'),
+('Whirlpool');
+
+-- Inserciones para la tabla Modelo
+INSERT INTO Modelo (NombreModelo) VALUES 
+('Alpha 1.5T'),
+('Beta Cool'),
+('Gamma Air Pro'),
+('Delta Series'),
+('Epsilon Ultra'),
+('Zeta Compact'),
+('Omega Silent'),
+('Sigma Cool Max'),
+('Phi Energy Saver'),
+('Kappa Eco');
+
+-- Inserciones para la tabla Usuario
+INSERT INTO Usuario (Nombre, Correo, Contraseña, IDRol) VALUES 
+('Juan Pérez', 'juan.perez@example.com', 'hashed_password1', 1),
+('María López', 'maria.lopez@example.com', 'hashed_password2', 2),
+('Carlos Díaz', 'carlos.diaz@example.com', 'hashed_password3', 2),
+('Luisa Gómez', 'luisa.gomez@example.com', 'hashed_password4', 2),
+('Ana Ramírez', 'ana.ramirez@example.com', 'hashed_password5', 2),
+('Pedro Sánchez', 'pedro.sanchez@example.com', 'hashed_password6', 2),
+('Sofía Torres', 'sofia.torres@example.com', 'hashed_password7', 2),
+('Miguel Jiménez', 'miguel.jimenez@example.com', 'hashed_password8', 2),
+('Laura Vega', 'laura.vega@example.com', 'hashed_password9', 2),
+('Diego Martínez', 'diego.martinez@example.com', 'hashed_password10', 2);
+
+-- Inserciones para la tabla Minisplit
+INSERT INTO Minisplit (IDMarca, IDModelo, NombreMinisplit, Descripcion, ImagenRuta) VALUES 
+(1, 1, 'Samsung Cool Breeze', 'Aire acondicionado Samsung de alta eficiencia', '/imagenes/samsung1.jpg'),
+(2, 2, 'LG Fresh Air', 'Modelo compacto de bajo consumo LG', '/imagenes/lg1.jpg'),
+(3, 3, 'Midea Arctic', 'Potente enfriamiento y diseño moderno', '/imagenes/midea1.jpg'),
+(4, 4, 'Carrier Silent Cool', 'Silencioso y duradero', '/imagenes/carrier1.jpg'),
+(5, 5, 'Panasonic EcoSmart', 'Ahorro energético con tecnología avanzada', '/imagenes/panasonic1.jpg'),
+(6, 6, 'Daikin Comfort', 'Alta eficiencia con diseño elegante', '/imagenes/daikin1.jpg'),
+(7, 7, 'TCL Frost', 'Económico y eficiente', '/imagenes/tcl1.jpg'),
+(8, 8, 'Hitachi Polar', 'Sistema confiable y duradero', '/imagenes/hitachi1.jpg'),
+(9, 9, 'Gree UltraCool', 'Máxima potencia y eficiencia', '/imagenes/gree1.jpg'),
+(10, 10, 'Whirlpool ArcticPlus', 'Innovador y compacto', '/imagenes/whirlpool1.jpg');
+
+-- Inserciones para la tabla Mantenimiento
+INSERT INTO Mantenimiento (IDUsuario, IDMarca, IDModelo, Direccion, ProblemaDescripcion, FechaReservacion, Aprobada) VALUES 
+(2, 1, 1, 'Calle Principal #123', 'No enfría adecuadamente', '2024-12-01 10:00:00', 0),
+(3, 2, 2, 'Av. Secundaria #456', 'Fuga de agua', '2024-12-02 14:30:00', 1),
+(4, 3, 3, 'Blvd. Central #789', 'Ruido excesivo', '2024-12-03 16:00:00', 1),
+(5, 4, 4, 'Callejón Estrecho #321', 'No se enciende', '2024-12-04 09:00:00', 0),
+(6, 5, 5, 'Plaza Comercial #111', 'Control remoto no responde', '2024-12-05 12:00:00', 1),
+(7, 6, 6, 'Calle Nueva #222', 'Mal olor al encender', '2024-12-06 11:00:00', 0),
+(8, 7, 7, 'Av. Vieja #333', 'Fallo en el compresor', '2024-12-07 13:00:00', 1),
+(9, 8, 8, 'Fraccionamiento Sur #444', 'Consumo energético elevado', '2024-12-08 15:00:00', 0),
+(10, 9, 9, 'Residencial Norte #555', 'Vibración excesiva', '2024-12-09 17:00:00', 1),
+(2, 10, 10, 'Zona Centro #666', 'Pantalla LED no funciona', '2024-12-10 10:00:00', 1);
+
+-- Inserciones para la tabla Comentario
+INSERT INTO Comentario (IDUsuario, Comentario, FechaCreacion, FechaModificacion, Aprobada) VALUES 
+(2, 'Excelente servicio, muy profesional.', '2024-11-15 10:00:00', '2024-11-15 10:00:00', 1),
+(3, 'Rápido y eficaz, lo recomiendo.', '2024-11-16 11:30:00', '2024-11-16 11:30:00', 1),
+(4, 'Resolvieron el problema en poco tiempo.', '2024-11-17 14:00:00', '2024-11-17 14:00:00', 1),
+(5, 'Buen trabajo, pero algo tardado.', '2024-11-18 16:00:00', '2024-11-18 16:00:00', 0),
+(6, 'Muy atentos y amables.', '2024-11-19 09:00:00', '2024-11-19 09:00:00', 1),
+(7, 'Me explicaron todo detalladamente.', '2024-11-20 12:00:00', '2024-11-20 12:00:00', 1),
+(8, 'El equipo quedó como nuevo.', '2024-11-21 13:00:00', '2024-11-21 13:00:00', 1),
+(9, 'Satisfecho con el servicio.', '2024-11-22 15:00:00', '2024-11-22 15:00:00', 1),
+(10, 'Volvería a contratarlos.', '2024-11-23 10:00:00', '2024-11-23 10:00:00', 1),
+(2, 'Buen servicio a un precio justo.', '2024-11-24 11:30:00', '2024-11-24 11:30:00', 0);
+
+-- Inserciones para la tabla AcercaDe
+INSERT INTO AcercaDe (IDUsuario, Contenido) VALUES 
+(1, 'Somos una empresa comprometida con la calidad y satisfacción del cliente.'),
+(2, 'Nuestro objetivo es ofrecer el mejor servicio de mantenimiento para minisplits.'),
+(3, 'Contamos con técnicos capacitados y herramientas de última tecnología.'),
+(4, 'Garantizamos un servicio rápido, eficiente y a precios competitivos.'),
+(5, 'Trabajamos con las mejores marcas y modelos del mercado.'),
+(6, 'Nuestra prioridad es la comodidad y bienestar de nuestros clientes.'),
+(7, 'Más de 10 años de experiencia en el sector nos respaldan.'),
+(8, 'Siempre en constante innovación para mejorar nuestros servicios.'),
+(9, 'Ofrecemos planes de mantenimiento preventivo y correctivo.'),
+(10, 'Estamos disponibles 24/7 para atender cualquier emergencia.');
+
 
 
 
@@ -225,6 +310,18 @@ BEGIN
 END;
 GO
 
+CREATE PROCEDURE usp_obtener_nombre_marca
+    @IDMarca INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT NombreMarca
+    FROM Marca
+    WHERE IDMarca = @IDMarca;
+END;
+
+
 -- Procedimiento para listar modelos
 CREATE PROCEDURE sp_lista_Modelo
 AS
@@ -270,6 +367,18 @@ GO
 
 USE [Danny Server];
 GO
+
+CREATE PROCEDURE usp_obtener_nombre_modelo
+    @IDModelo INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT NombreModelo
+    FROM Modelo
+    WHERE IDModelo = @IDModelo;
+END;
+
 
 CREATE PROCEDURE usp_autenticar_usuario
     @Correo VARCHAR(50),

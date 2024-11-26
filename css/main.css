@@ -56,7 +56,8 @@ body {
 }
 
 .imgmini {
-    height: 20rem;
+    min-height: 20rem;
+    max-height: 20rem;
 }
 
 .imgsplit {
